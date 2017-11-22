@@ -33,29 +33,11 @@ while ($row = mysqli_fetch_assoc($result)){
   $newnode->setAttribute("id",$row['id']);
   $newnode->setAttribute("ssid",$row['ssid']);
   $newnode->setAttribute("mac", $row['mac']);
-  $newnode->setAttribute("isp", $row['isp']);
+  $newnode->setAttribute("channel", $row['channel']);
   $newnode->setAttribute("lat", $row['lat']);
   $newnode->setAttribute("lng", $row['lng']);
+  $newnode->setAttribute("label", $row['label']);
 }
 
 echo $dom->saveXML();
-
-
-/*INSERTED VALUES
-
-14.675143, 121.041914
-14.675309, 121.042048
-14.674671, 121.041904
-14.674723, 121.041995
-14.675081, 121.041464
-
-'14.674910','121.041469'
-'14.675024','121.041646'
-'14.674754','121.041619'
-'14.675044','121.041989'
-INSERT INTO aps (ssid,mac,isp,lat,lng) VALUES ('test','00-00-00-00-00-00','pldc','14.675278','121.041727');   this is the 10th
-
-*/
-
-
 ?>
