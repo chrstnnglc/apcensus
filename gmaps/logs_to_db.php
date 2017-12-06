@@ -9,7 +9,7 @@
 		die('Cant use db: '. mysqli_error($connect));
 	}
 	
-	$myfile = fopen("parsed_bflog.txt", "r") or die("Unable to open file!");
+	$myfile = fopen("parsed_trike_bflog.txt", "r") or die("Unable to open file!");
 	while(!feof($myfile)) {
 		$line = fgets($myfile);
 		$array = explode("=",$line);

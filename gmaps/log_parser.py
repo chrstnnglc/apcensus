@@ -1,6 +1,6 @@
 ##THIS PARSES bflogs.txt files in ROCMAN.
-file = open("bflog.txt","r")
-res_file = open("parsed_bflog.txt","w")
+file = open("trike_bflog.txt","r")
+res_file = open("parsed_trie_bflog.txt","w")
 
 unique_aps = []
 ap_list = []
@@ -30,7 +30,7 @@ for line in file:
 			for item in ap_list:
 				##check if its rssi in this reading is smaller than its current record in ap_list then replace its current rssi and coordinate
 				if item.bssid == bssid:
-					if item.rssi > rssi:
+					if int(item.rssi) < int(rssi):
 						item.rssi = rssi
 						item.coord = coord
 

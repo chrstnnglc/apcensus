@@ -35,8 +35,9 @@ with open('wigle-76.csv','rb') as csvfile:
 			else:
 				for item in wigle_list:
 					if bssid == item.bssid:
-						item.rssi = rssi
-						item.coord = coord
+                                                if int(item.rssi) < int(rssi):
+                                                        item.rssi = rssi
+                                                        item.coord = coord
 		i += 1
 for item in wigle_list:
     text = str(item.bssid) + " = " + str(item.coord) + " = " + str(item.rssi) + " = " + str(item.channel) + "\n"

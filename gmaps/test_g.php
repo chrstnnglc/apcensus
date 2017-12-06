@@ -73,12 +73,20 @@ var rpCountArr = [];
 var wCountArr = [];
 var wsCountArr = [];
 var rectCountArr = [];
+var rectTimeArr = [];
+var gps_lat = [];
+var gps_lng = [];
+var gps_timeArr = [];
 var map, rp_count, w_count, ws_count, rect_count, total_count;
 function gridMap() { 
 	map = new google.maps.Map(document.getElementById('map'), 
 		{ 
+			/*for area2
 			zoom: 19, 
-			center: {lat: 14.659672, lng: 121.067834},
+			center: {lat: 14.659672, lng: 121.067834},*/
+			//for balara
+			zoom: 17,
+			center: {lat: 14.655134, lng: 121.078520},		
 			mapTypeId: 'terrain' 
 		}
 	);
@@ -144,6 +152,7 @@ function gridMap() {
 			else if (label == "wiglesite"){
 				icon = 'ws_marker.png'
 			}
+			//create marker
 			var marker = new google.maps.Marker({
 				map: map,
 				position: point,
@@ -173,11 +182,42 @@ function gridMap() {
 			});
 		});
 		
-		//initial bounds
+		//get the gps readings
+		var gps_list = xml.documentElement.getElementsByTagName('gps');
+		Array.prototype.forEach.call(gps_list, function(gps) {
+			var time = gps.getAttribute('time');
+			var id = gps.getAttribute('id');
+			time = time.split(":");
+			var gps_time = new Date();
+			gps_time.setHours(+time[0]);
+			gps_time.setMinutes(time[1]);
+			gps_time.setSeconds(time[2]);
+			gps_timeArr.push(gps_time);
+			gps_lat.push(parseFloat(gps.getAttribute('lat')));
+			gps_lng.push(parseFloat(gps.getAttribute('lng')));
+			/*var point = new google.maps.LatLng(
+				parseFloat(gps.getAttribute('lat')),
+				parseFloat(gps.getAttribute('lng'))
+			);
+			var marker = new google.maps.Marker({
+				map: map,
+				position: point
+			});*/
+		});
+		
+		//we now create the grid in area2
+		/*initial bounds for area2		(0.000153 difference), j < 7, i ,< 10
 		var north = 14.660184;
 		var south = 14.660031;
 		var east = 121.067174;
-		var west = 121.067021;
+		var west = 121.067021;*/
+		
+		//initial bounds for balara tricycle (0.000453 difference), j < 7, i ,< 18
+		var north = 14.656230;
+		var south = 14.655777;
+		var east = 121.075060;
+		var west = 121.074607;
+		
 		var rectangle;
 		total_count = 0;
 		for(j=0; j < 7; j++){
@@ -186,17 +226,17 @@ function gridMap() {
 			}
 			else{
 				north = south;
-				south = +((north - 0.000153).toFixed(6));
-				east = 121.067174;	//set the value of this equal to the initial east bound
-				west = 121.067021;	//set the value of this equal to the initial west bound
+				south = +((north - 0.000453).toFixed(6));
+				east = 121.075060;	//set the value of this equal to the initial east bound
+				west = 121.074607;	//set the value of this equal to the initial west bound
 			}
-			for(i=0; i < 10; i++){
+			for(i=0; i < 19; i++){
 				if(i==0){
 					//do nothing
 				}
 				else{
 					west = east;
-					east = +((west + 0.000153).toFixed(6));
+					east = +((west + 0.000453).toFixed(6));
 				} 
 				rectangle = new google.maps.Rectangle({ 
 					strokeColor: '#000000', 
@@ -263,20 +303,41 @@ function gridMap() {
 				wCountArr.push(w_count);
 				wsCountArr.push(ws_count);
 				rectCountArr.push(String(rect_count));
-				total_count = total_count + rect_count
+				total_count = total_count + rect_count;
+				rectTimeArr.push(0);
 			}
 		}
-		console.log("Total Count: " + total_count)
-		
+		console.log("Total Count: " + total_count);
+		//count how many seconds did we stay inside the rectangle
+		for(i = 0; i < rectArr.length; i++){
+			first_time = 0
+			for(x = 0; x < gps_lat.length; x++){
+				var point = new google.maps.LatLng(gps_lat[x], gps_lng[x]);
+				if(rectArr[i].getBounds().contains(point)){
+					if(first_time == 0){
+						start = gps_timeArr[x];
+						first_time = 1;
+					}
+				}
+				else{
+					if(first_time == 1){
+						time_spent = parseInt((gps_timeArr[x] - start)/1000);
+						rectTimeArr[i] += time_spent;
+						first_time = 0;
+					}
+				}
+			}
+		}
 		//add event listners for each rectangle and get the count in that rectangle
 		for(i = 0; i < rectArr.length; i++){
 			google.maps.event.addListener(rectArr[i],'click', function(event) {
 				for(j = 0; j < rectArr.length; j++){
 					if(rectArr[j].getBounds().contains(event.latLng)){
 						rect_count = rectCountArr[j];
+						rect_time = rectTimeArr[j];
 					}
 				}
-				infoWindow.setContent("# of APs: <b>" + String(rect_count) + '</b>')
+				infoWindow.setContent("# of APs: <b>" + String(rect_count) + "</b> <br> Time Spent: <b>" + String(rect_time) + " seconds </b>")
 				infoWindow.setPosition(event.latLng);
 				infoWindow.open(map);
 			}); 
@@ -383,6 +444,7 @@ function toggleW() {
 	countRect();
 	redrawRectangle(map);
 }
+
 function toggleWS() {
 	if(document.getElementById("ws_button").classList.contains("active")){
 		document.getElementById("ws_button").classList.remove("active");
@@ -398,84 +460,6 @@ function toggleWS() {
 	countRect();
 	redrawRectangle(map);
 }
-	
-	/*
-		//initialize map centered at Quezon City
-        function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: new google.maps.LatLng(14.676208,121.043861),
-          zoom: 18
-        });
-		//initialize infoWindow
-        var infoWindow = new google.maps.InfoWindow;
-
-          downloadUrl('test_g_fetch.php', function(data) {
-            var xml = data.responseXML;
-            var ap_list = xml.documentElement.getElementsByTagName('ap');
-			//read elements of XML output
-            Array.prototype.forEach.call(ap_list, function(ap) {
-              var id = ap.getAttribute('id');
-              var ssid = ap.getAttribute('ssid');
-              var mac = ap.getAttribute('mac');
-              var isp = ap.getAttribute('isp');
-              var point = new google.maps.LatLng(
-                  parseFloat(ap.getAttribute('lat')),
-                  parseFloat(ap.getAttribute('lng')));
-			  
-			  //set the content of the infoWindow
-              var infowincontent = document.createElement('div');
-              var strong = document.createElement('strong');
-              strong.textContent = ssid
-              infowincontent.appendChild(strong);
-              infowincontent.appendChild(document.createElement('br'));
-			  
-			  mac = "MAC: " + mac;
-			  isp = "ISP: " + isp;
-              var text = document.createElement('text');
-              text.textContent = mac
-              infowincontent.appendChild(text);
-			  infowincontent.appendChild(document.createElement('br'));
-			  var text = document.createElement('text');
-              text.textContent = isp
-              infowincontent.appendChild(text);
-			  
-			  //plot the marker in the map
-              var marker = new google.maps.Marker({
-                map: map,
-                position: point,
-                label: "AP",
-              });
-			  
-			  //show the info on mouse hover
-              marker.addListener('mouseover', function() {
-                infoWindow.setContent(infowincontent);
-                infoWindow.open(map, marker);
-              });
-			  
-			  //hide info when mouse leaves the marker
-			  marker.addListener('mouseout', function() {
-                infoWindow.setContent(infowincontent);
-                infoWindow.close(map, marker);
-              });
-            });
-          });
-        }
-
-      function downloadUrl(url, callback) {
-        var request = window.ActiveXObject ?
-            new ActiveXObject('Microsoft.XMLHTTP') :
-            new XMLHttpRequest;
-
-        request.onreadystatechange = function() {
-          if (request.readyState == 4) {
-            request.onreadystatechange = doNothing;
-            callback(request, request.status);
-          }
-        };
-
-        request.open('GET', url, true);
-        request.send(null);
-      }*/
 
 function downloadUrl(url, callback) {
 	var request = window.ActiveXObject ?
