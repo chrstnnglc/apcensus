@@ -8,8 +8,7 @@ import settings
 import constants
 import script_argparser
 import gps_thread
-from scapy.all import * #apc edit
-import threading #apc edit
+import trace_thread #apc edit
 from utility_methods import *
 from master import Mastery
 from master import DistWinMastery
@@ -60,15 +59,11 @@ if __name__ == "__main__":
         if not os.path.exists(log_folder):
                 os.makedirs(log_folder)
 
-	# apc edit: lahat ng may sudo
-	call(['sudo','ifconfig','wlan1','down'])
-        call(['sudo','iwconfig','wlan1', 'mode','monitor'])
-        call(['sudo','ifconfig','wlan1','up'])
 	call(['airmon-ng', 'start', 'wlan1']) # will create a monitoring interface on mon0
-        # apc edit: make as thread
-	call(['sudo', 'tcpdump', '-i', 'wlan1', '-e', '-s', '256', '-w', log_folder + 'trace.pcap', 'type', 'mgt'])
-        
+
         if role == "master":
+                shark = trace_thread.SharkThread() #apc edit
+                shark.start() #apc edit
 
                 gps = gps_thread.GPSThread()
                 gps.start()
@@ -91,7 +86,7 @@ if __name__ == "__main__":
         else: # should never happen
                 print("what am i? :thinking:")
 	reactor.run()
-
+	
         print('\nCapture stopped.')
         raw_input('Press ENTER to exit.\n')
 else:
