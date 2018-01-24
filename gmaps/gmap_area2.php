@@ -2,7 +2,8 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <title>Using MySQL and PHP with Google Maps</title>
+    <title>AP Census Area 2</title>
+	
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -47,6 +48,9 @@
 	  #w_button{
 		background-color: rgb(58,111,237);
 	  }
+	  #time_button{
+		 background-color: rgb(255,252,60); 
+	  }
     </style>
   </head>
 
@@ -56,6 +60,7 @@
 		<input onclick="toggleWS()" type="button" value="Wigle Site" id="ws_button" class="buttons active">
 		<input onclick="toggleRP()" type="button" value="RasPi" id="rp_button" class="buttons active">
 		<input onclick="toggleW()" type="button" value="Wigle" id="w_button" class="buttons active">
+		<input onclick="toggleTime()" type="button" value="Time Spent" id="time_button" class="buttons inactive">
 	</div>
 
 <script>
@@ -334,7 +339,7 @@ function gridMap() {
 	});
 }
 
-function countRect(){
+function countRectAP(){
 	total_count = 0;
 	for(i = 0; i < rectArr.length; i++){
 		//loop through all of our points and check whether it is inside this grid/rectangle being drawn
@@ -381,6 +386,37 @@ function countRect(){
 	console.log("Total Count: " + total_count)
 }
 
+function countRectTime(){
+	for(i = 0; i < rectArr.length; i++){
+		rect_time = rectTimeArr[i]
+		if(rect_time != 0){
+			//    !!!!!!!     change the values to higher times next time     !!!!!!!!!!!!!!
+			if(rect_time > 60){
+				color = "#A98600"
+			}
+			else if(rect_time > 40 && rect_time <= 60){
+				color = "#DAB600"
+			}
+			else if(rect_time > 20 && rect_time <= 40){
+				color = "#E9D700"
+			}
+			else if(rect_time > 0 && rect_time <= 20){
+				color = "#FFF9AE"
+			}
+			rectArr[i].setOptions({
+				fillColor: color,
+				fillOpacity: 0.9
+			});
+		}
+		else if(rect_time == 0){
+			rectArr[i].setOptions({
+				fillColor: "#000000",  //any color will do as long as transparent
+				fillOpacity: 0.0
+			});
+		}
+	}
+}
+
 function RPsetMap(map) {
 	for (var i = 0; i < rp_markers.length; i++) {
 	  rp_markers[i].setMap(map);
@@ -414,8 +450,15 @@ function toggleRP() {
 		document.getElementById("rp_button").classList.add("active");
 		RPsetMap(map);
 	}
+	
+	//set Time Spent button to inactive if it is active
+	if(document.getElementById("time_button").classList.contains("active")){
+		document.getElementById("time_button").classList.remove("active");
+		document.getElementById("time_button").classList.add("inactive");
+	}
+	
 	redrawRectangle(null);
-	countRect();
+	countRectAP();
 	redrawRectangle(map);
 }
 function toggleW() {
@@ -429,8 +472,15 @@ function toggleW() {
 		document.getElementById("w_button").classList.add("active");
 		WsetMap(map);
 	}
+	
+	//set Time Spent button to inactive if it is active
+	if(document.getElementById("time_button").classList.contains("active")){
+		document.getElementById("time_button").classList.remove("active");
+		document.getElementById("time_button").classList.add("inactive");
+	}
+	
 	redrawRectangle(null);
-	countRect();
+	countRectAP();
 	redrawRectangle(map);
 }
 
@@ -445,9 +495,33 @@ function toggleWS() {
 		document.getElementById("ws_button").classList.add("active");
 		WSsetMap(map);
 	}
+	
+	//set Time Spent button to inactive if it is active
+	if(document.getElementById("time_button").classList.contains("active")){
+		document.getElementById("time_button").classList.remove("active");
+		document.getElementById("time_button").classList.add("inactive");
+	}
+	
 	redrawRectangle(null);
-	countRect();
+	countRectAP();
 	redrawRectangle(map);
+}
+
+function toggleTime(){
+	if(document.getElementById("time_button").classList.contains("active")){
+		document.getElementById("time_button").classList.remove("active");
+		document.getElementById("time_button").classList.add("inactive");
+		redrawRectangle(null);
+		countRectAP();
+		redrawRectangle(map);
+	}
+	else if(document.getElementById("time_button").classList.contains("inactive")){
+		document.getElementById("time_button").classList.remove("inactive");
+		document.getElementById("time_button").classList.add("active");
+		redrawRectangle(null);
+		countRectTime();
+		redrawRectangle(map);
+	}
 }
 
 function downloadUrl(url, callback) {
