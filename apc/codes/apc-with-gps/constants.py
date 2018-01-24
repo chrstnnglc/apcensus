@@ -1,0 +1,6 @@
+logs_folder = '/home/pi/apc/logs/'
+beacons_log_path = 'beacons.txt'
+bf_full_log_path = 'bflog.txt'
+gps_readings = 'gps_readings.txt'
+mac_log_path = 'macs.txt'
+interface = 'wlan1'
