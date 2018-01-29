@@ -8,7 +8,7 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 80%;
+        height: 100%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -19,9 +19,9 @@
 	  #selection_buttons {
 		text-align: center;
 		background-color: rgb(209,202,206);
-		border-top: 3px solid black;
-		border-bottom: 3px solid black;
+		border: 3px solid black;
 		padding: 25px 0 25px 0;
+		margin-bottom: 10px;
 	  }
 	  .buttons{
 		  height: 30px;
@@ -49,13 +49,130 @@
 		background-color: rgb(58,111,237);
 	  }
 	  #time_button{
-		 background-color: rgb(255,252,60); 
+		background-color: rgb(255,252,60); 
+	  }
+	  #legend_cont{
+		font-family: Arial, sans-serif;
+        background: #FFF;
+        padding: 10px;
+        margin: 10px;
+        border: 3px solid #000;
+	  }
+	  #legend_cont h2{
+		  text-align: center;
+		  margin: 0 0 10px 0;
+	  }
+	  #aps_legend{
+		font-size: 15px;
+	  }
+	  #aps_legend p{
+		  margin: 10px;
+	  }
+	  #legend_cont h3{
+		  margin: 0 0 10px 0;
+	  }
+	  #grid_legend_table_ap, #grid_legend_table_time{
+		font-size: 15px;
+	  }
+	  #grid_legend_table_time{
+		  display: none;
+	  }
+	  .grid_legend{
+		  height: 25px;
+		  width: 25px;
+		  border: 1px solid black;
+	  }
+	  .most_ap{
+		background-color: #FF0000;
+	  }
+	  .more_ap{
+		 background-color: #FA8072;  
+	  }
+	  .less_ap{
+		 background-color: #F88379; 
+	  }
+	  .lesser_ap{
+		 background-color: #FF91A4; 
+	  }
+	  .least_ap{
+		 background-color: #FFC0CB; 
+	  }
+	  .most_time{
+		background-color: #A98600;
+	  }
+	  .more_time{
+		 background-color: #E0B300;  
+	  }
+	  .lesser_time{
+		 background-color: #E9D700; 
+	  }
+	  .least_time{
+		 background-color: #FFF9AE; 
 	  }
     </style>
   </head>
 
   <body>
     <div id="map"></div>
+	<div id="legend_cont">
+		<h2>Legend</h2>
+		<div id="aps_legend">
+			<p> <img src="rp_marker.png"> &nbsp RasPi detected APs </p>
+			<p> <img src="w_marker.png"> &nbsp WiGLE detected APs </p>
+			<p> <img src="ws_marker.png"> &nbsp WiGLE Database APs </p>
+		</div>
+		<h3> Grid Colors </h3>
+		<table id="grid_legend_table_ap">
+			<tr>
+				<td><div class="grid_legend most_ap"></div></td>
+				<td>More than 20 APs</td>
+			</tr>
+			<tr>
+				<td><div class="grid_legend more_ap"></div></td>
+				<td>15 to 20 APs</td>
+			</tr>
+			<tr>
+				<td><div class="grid_legend less_ap"></div></td>
+				<td>10 to 15 APs</td>
+			</tr>
+			<tr>
+				<td><div class="grid_legend lesser_ap"></div></td>
+				<td>5 to 10 APs</td>
+			</tr>
+			<tr>
+				<td><div class="grid_legend least_ap"></div></td>
+				<td>0 to 5 APs</td>
+			</tr>
+			<tr>
+				<td><div class="grid_legend none"></div></td>
+				<td>No data</td>
+			</tr>
+		</table>
+
+		<table id="grid_legend_table_time">
+			<tr>
+				<td><div class="grid_legend most_time"></div></td>
+				<td>More than 60 sec</td>
+			</tr>
+			<tr>
+				<td><div class="grid_legend more_time"></div></td>
+				<td>40 to 60 sec</td>
+			</tr>
+			<tr>
+				<td><div class="grid_legend lesser_time"></div></td>
+				<td>20 to 40 sec</td>
+			</tr>
+			<tr>
+				<td><div class="grid_legend least_time"></div></td>
+				<td>0 to 20 sec</td>
+			</tr>
+			<tr>
+				<td><div class="grid_legend none"></div></td>
+				<td>Not data</td>
+			</tr>
+		</table>
+	</div>
+	
 	<div id="selection_buttons">
 		<input onclick="toggleWS()" type="button" value="Wigle Site" id="ws_button" class="buttons active">
 		<input onclick="toggleRP()" type="button" value="RasPi" id="rp_button" class="buttons active">
@@ -83,12 +200,14 @@ var gps_lat = [];
 var gps_lng = [];
 var gps_timeArr = [];
 var map, rp_count, w_count, ws_count, rect_count, total_count;
+
 function gridMap() { 
 	map = new google.maps.Map(document.getElementById('map'), 
 		{ 
 			zoom: 19, 
 			center: {lat: 14.659672, lng: 121.067834},	
-			mapTypeId: 'terrain' 
+			mapTypeId: 'terrain',
+			zoomControl: false			
 		}
 	);
 	//initialize infoWindow
@@ -337,6 +456,10 @@ function gridMap() {
 			}); 
 		}
 	});
+	
+	//add the list of legend, and toggle buttons in the map
+	map.controls[google.maps.ControlPosition.RIGHT_TOP].push(document.getElementById('legend_cont'));
+	map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('selection_buttons'));
 }
 
 function countRectAP(){
@@ -395,7 +518,7 @@ function countRectTime(){
 				color = "#A98600"
 			}
 			else if(rect_time > 40 && rect_time <= 60){
-				color = "#DAB600"
+				color = "#E0B300"
 			}
 			else if(rect_time > 20 && rect_time <= 40){
 				color = "#E9D700"
@@ -460,6 +583,8 @@ function toggleRP() {
 	redrawRectangle(null);
 	countRectAP();
 	redrawRectangle(map);
+	document.getElementById("grid_legend_table_time").style.display = "none";
+	document.getElementById("grid_legend_table_ap").style.display = "block";
 }
 function toggleW() {
 	if(document.getElementById("w_button").classList.contains("active")){
@@ -482,6 +607,8 @@ function toggleW() {
 	redrawRectangle(null);
 	countRectAP();
 	redrawRectangle(map);
+	document.getElementById("grid_legend_table_time").style.display = "none";
+	document.getElementById("grid_legend_table_ap").style.display = "block";
 }
 
 function toggleWS() {
@@ -505,6 +632,8 @@ function toggleWS() {
 	redrawRectangle(null);
 	countRectAP();
 	redrawRectangle(map);
+	document.getElementById("grid_legend_table_time").style.display = "none";
+	document.getElementById("grid_legend_table_ap").style.display = "block";
 }
 
 function toggleTime(){
@@ -514,6 +643,8 @@ function toggleTime(){
 		redrawRectangle(null);
 		countRectAP();
 		redrawRectangle(map);
+		document.getElementById("grid_legend_table_time").style.display = "none";
+		document.getElementById("grid_legend_table_ap").style.display = "block";
 	}
 	else if(document.getElementById("time_button").classList.contains("inactive")){
 		document.getElementById("time_button").classList.remove("inactive");
@@ -521,6 +652,8 @@ function toggleTime(){
 		redrawRectangle(null);
 		countRectTime();
 		redrawRectangle(map);
+		document.getElementById("grid_legend_table_time").style.display = "block";
+		document.getElementById("grid_legend_table_ap").style.display = "none";
 	}
 }
 
