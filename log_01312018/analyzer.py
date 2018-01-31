@@ -69,6 +69,20 @@ def get_encryption(pkt):
 
 	encryption = '/'.join(crypto)
 	return encryption
+
+def get_p_ch(pkt):
+    p = pkt[Dot11Elt]
+    cap = pkt.sprintf("{Dot11Beacon:%Dot11Beacon.cap%}"
+                  "{Dot11ProbeResp:%Dot11ProbeResp.cap%}").split('+')
+    channel = "X"   #default no channel or X
+    
+    while isinstance(p, Dot11Elt):
+            if p.ID == 3:
+                    if p.info:
+                            channel = str(ord(p.info[0]))
+            p = p.payload
+    
+    return channel
 	
 def callf(p):
 	global counter
@@ -79,7 +93,7 @@ def callf(p):
 			unique_aps.append(p.addr2)
 			bssid = p.addr2
 			ssid = p.info
-			channel = ord(p[Dot11Elt:3].info[0])
+			channel = get_p_ch(p)
 			enc = get_encryption(p)
 			arrival_time = p.time
 			rssi = -(256-ord(p.notdecoded[-2:-1]))
@@ -104,9 +118,9 @@ def callf(p):
 
 ##test = sniff(iface = 'wlan1', prn = callf)
 # down wlan, monitor mode yung wlan, up wlan
-sniff(prn = callf, offline="trace.pcap")
+sniff(prn = callf, offline="z_trace_01312018.pcap")
 
-with open('trace.csv','wb') as csvfile:
+with open('z_trace_01312018.csv','wb') as csvfile:
 	write_file = csv.writer(csvfile, delimiter = ',')
 	write_file.writerow(["BSSID","SSID","Encryption","Channel","Average Beacon Interval","Average Strength Signal","Number of Packets","Interval Summation","RSSI Summation"])
 	for item in ap_list:
