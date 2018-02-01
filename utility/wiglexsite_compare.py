@@ -18,7 +18,7 @@ class AP:
 ##read Wigle trace
 i = 0		
 with open('wigle-76.csv','rb') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for row in reader:
 		if i > 1:	##ignore first 2 lines
 			row = ','.join(row)
@@ -40,7 +40,7 @@ print "APs in Wigle: " + str(len(wigle_list))
 ##read RPi trace
 i = 0			
 with open('wiglesite_list.csv','rb') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for row in reader:
 		if i != 0:		##ignore first line
 			row = ','.join(row)

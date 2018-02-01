@@ -27,8 +27,8 @@ class AP:
 		self.avg_rssi = self.sum_rssi / self.num_readings
 ##read Wigle trace
 i = 0		
-with open('wigle-76.csv','rb') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+with open('WigleWifi_20180131130130.csv','rb') as csvfile:
+	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for row in reader:
 		if i > 1:	##ignore first 2 lines
 			row = ','.join(row)
@@ -57,12 +57,12 @@ with open('wigle-76.csv','rb') as csvfile:
 	for item in wigle_list:
 		item.compute_avg_rssi()
 
-print "APs in Wigle: " + str(len(wigle_list))		
+print "APs in WiGLE: " + str(len(wigle_list))		
 
 ##read RPi trace
 i = 0			
-with open('log-76.csv','rb') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+with open('z_trace_01312018.csv','rb') as csvfile:
+	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for row in reader:
 		if i != 0:		##ignore first line
 			row = ','.join(row)
@@ -109,9 +109,9 @@ for i in range(len(rpi_index)):
 
 ##print final data in csv file			
 print "Common APs: " + str(len(common_list))
-print "Unique Wigle: " + str(len(wigle_list))
+print "Unique WiGLE: " + str(len(wigle_list))
 print "Unique RPi: " + str(len(rpi_list))
-with open('wiglexrpi-76.csv','wb') as csvfile:
+with open('log_wx1611_01312018.csv','wb') as csvfile:
 	write_file = csv.writer(csvfile, delimiter = ',')
 	
 	##write common aps
@@ -122,7 +122,7 @@ with open('wiglexrpi-76.csv','wb') as csvfile:
 	
 	##write unique aps in wigle
 	write_file.writerow([" "])
-	write_file.writerow(["Wigle Unique",str(len(wigle_list))])
+	write_file.writerow(["WiGLE Unique",str(len(wigle_list))])
 	write_file.writerow(["BSSID","SSID","Wigle-Encryption","Wigle-Channel","Wigle Avg RSSI"])
 	for item in wigle_list:
 		write_file.writerow([str(item.bssid),str(item.ssid),str(item.enc),str(item.channel),str(item.avg_rssi)])

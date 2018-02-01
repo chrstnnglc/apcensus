@@ -18,7 +18,7 @@ class AP:
 ##read rpi trace
 i = 0		
 with open('log-76.csv','rb') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for row in reader:
 		if i != 0:	##ignore first line
 			row = ','.join(row)
@@ -40,7 +40,7 @@ print "APs in Rpi: " + str(len(rpi_list))
 ##read Site trace
 i = 0			
 with open('wiglesite_list.csv','rb') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for row in reader:
 		if i != 0:		##ignore first line
 			row = ','.join(row)

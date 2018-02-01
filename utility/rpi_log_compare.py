@@ -15,8 +15,8 @@ class AP:
 
 ##read Wigle trace
 i = 0		
-with open('area2.csv','rb') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+with open('trace_01312018.csv','rb') as csvfile:
+	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for row in reader:
 		if i > 1:		##ignore first line
 			row = ','.join(row)
@@ -31,12 +31,12 @@ with open('area2.csv','rb') as csvfile:
 			wigle_list.append(new_ap)
 		i += 1
 
-print "APs in Walk: " + str(len(wigle_list))		
+print "APs in 1-13: " + str(len(wigle_list))		
 
 ##read RPi trace
 i = 0			
-with open('log_51.csv','rb') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+with open('z_trace_01312018.csv','rb') as csvfile:
+	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for row in reader:
 		if i != 0:		##ignore first line
 			row = ','.join(row)
@@ -51,7 +51,7 @@ with open('log_51.csv','rb') as csvfile:
 			rpi_list.append(new_ap)
 		i += 1
 		
-print "APs in Stop: " + str(len(rpi_list))
+print "APs in 1,6,11: " + str(len(rpi_list))
 		
 rpi_index = []
 wigle_index = []		
@@ -78,9 +78,9 @@ for i in range(len(rpi_index)):
 
 ##print final data in csv file
 print "Common APs: " + str(len(common_list))
-print "Unique 49: " + str(len(wigle_list))
-print "Unique 51: " + str(len(rpi_list))
-with open('log49x51.csv','wb') as csvfile:
+print "Unique 1-13: " + str(len(wigle_list))
+print "Unique 1,6,11: " + str(len(rpi_list))
+with open('log_traces_01312018.csv','wb') as csvfile:
 	write_file = csv.writer(csvfile, delimiter = ',')
 	
 	##write common aps
@@ -89,14 +89,14 @@ with open('log49x51.csv','wb') as csvfile:
 	for item in common_list:
 		write_file.writerow([str(item.bssid),str(item.ssid),str(item.enc),str(item.channel)])
 		
-	##write unique for log 49
-	write_file.writerow(["Log 49",str(len(wigle_list))])
+	##write unique for first file
+	write_file.writerow(["1-13",str(len(wigle_list))])
 	write_file.writerow(["BSSID","SSID","Encryption","Channel"])
 	for item in wigle_list:
 		write_file.writerow([str(item.bssid),str(item.ssid),str(item.enc),str(item.channel)])
 		
-	##write unique for log 51
-	write_file.writerow(["Log 51",str(len(rpi_list))])
+	##write unique for second file
+	write_file.writerow(["1,6,11",str(len(rpi_list))])
 	write_file.writerow(["BSSID","SSID","Encryption","Channel"])
 	for item in rpi_list:
 		write_file.writerow([str(item.bssid),str(item.ssid),str(item.enc),str(item.channel)])
