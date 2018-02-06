@@ -9,7 +9,7 @@
 		die('Cant use db: '. mysqli_error($connect));
 	}
 	
-	$myfile = fopen("parsed_trike_bflog.txt", "r") or die("Unable to open file!");
+	$myfile = fopen("teachersvill/parsed_z_bflog.txt", "r") or die("Unable to open file!");
 	while(!feof($myfile)) {
 		$line = fgets($myfile);
 		$array = explode("=",$line);
@@ -21,7 +21,7 @@
 		$channel = rtrim($array[3]);
 		echo $ap_mac ." with coordinates ". $lat ." and ". $lng .", RSSI is: ". $rssi .",Ch: ". $channel ."<br>";
 		
-		$query = "INSERT INTO aps (ssid,mac,channel,lat,lng,rssi,label) VALUES ('none','$ap_mac','$channel','$lat','$lng','$rssi','rpi')";
+		$query = "INSERT INTO aps (ssid,mac,channel,lat,lng,rssi,label) VALUES ('none','$ap_mac','$channel','$lat','$lng','$rssi','rpi1611')";
 		$result = mysqli_query($connect,$query);
 		if (!$result) {
 			die('Invalid query: ' . mysqli_error($connect));

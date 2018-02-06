@@ -29,10 +29,8 @@ class AP:
 i = 0		
 with open('WigleWifi_20180131130130.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-	for row in reader:
+	for line in reader:
 		if i > 1:	##ignore first 2 lines
-			row = ','.join(row)
-			line = row.split(',')
 			
 			bssid = line[0]
 			ssid = line[1]
@@ -61,19 +59,15 @@ print "APs in WiGLE: " + str(len(wigle_list))
 
 ##read RPi trace
 i = 0			
-with open('z_trace_01312018.csv','rb') as csvfile:
+with open('trace_01312018.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-	for row in reader:
+	for line in reader:
 		if i != 0:		##ignore first line
-			row = ','.join(row)
-			line = row.split(',')
-			
 			bssid = line[0]
 			ssid = line[1]
 			enc = line[2]
 			channel = line[3]
 			avg_rssi = line[5]
-			
 			new_ap = AP(bssid,ssid,channel,enc)
 			new_ap.r_avg_rssi = avg_rssi
 			rpi_list.append(new_ap)

@@ -1,6 +1,6 @@
 ##THIS PARSES bflogs.txt files in ROCMAN.
-file = open("trike_bflog.txt","r")
-res_file = open("parsed_trie_bflog.txt","w")
+file = open("teachersvill/z_bflog.txt","r")
+res_file = open("teachersvill/parsed_z_bflog.txt","w")
 
 unique_aps = []
 ap_list = []

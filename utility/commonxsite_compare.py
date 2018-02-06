@@ -19,10 +19,8 @@ class AP:
 i = 0		
 with open('wiglexrpi-76.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='|')
-	for row in reader:
+	for line in reader:
 		if i > 1 and i < 113:	##ignore first 2 lines
-			row = ','.join(row)
-			line = row.split(',')
 			
 			bssid = line[0]
 			ssid = line[1]
@@ -41,10 +39,8 @@ print "APs in WiglexRpi: " + str(len(wiglexrpi_list))
 i = 0			
 with open('wiglesite_list.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='|')
-	for row in reader:
+	for line in reader:
 		if i != 0:		##ignore first line
-			row = ','.join(row)
-			line = row.split(',')
 			
 			ssid = line[0]
 			bssid = line[1]

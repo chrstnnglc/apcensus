@@ -2,6 +2,7 @@
 import json
 import csv
 import os
+import re
 import pytz
 from datetime import datetime
 
@@ -14,20 +15,26 @@ def to_Manila_timezone(time):
     local_time = datetime.strftime(local_time,"%Y-%m-%d, %I:%M:%S %p")
     return str(local_time)
 
-def main():    
-    with open('search.json') as data_wigle:
+def is_search(s):
+        return re.match("search[0-9]+.json", s)
+def get_search_number(s):
+        return int(s[6:])
+
+#look for all search.json files in the directory given
+searches = [s for s in os.listdir('C:/wamp64/www/gmaps/teachersvill/wigledb') if is_search(s)]
+
+#loop through all search.json files and write/append them to the output file
+i = 0
+for s in searches:
+    print s
+    with open(s) as data_wigle:
         data1 = json.load(data_wigle)
-
-    with open('search2.json') as data_wigle:
-        data2 = json.load(data_wigle)
-
-    with open('search3.json') as data_wigle:
-        data3 = json.load(data_wigle)
         
-    with open('ap_list.csv','wb') as csvfile:
+    with open('ap_list.csv','ab+') as csvfile:
         write_file = csv.writer(csvfile, delimiter = ',')
-        write_file.writerow(["SSID","Net ID","TriLat","TriLong","Encryption","Type","Trans ID","First Time","Last Time","Last Updt"])
-
+        if i == 0:
+            write_file.writerow(["SSID","Net ID","TriLat","TriLong","Encryption","Type","Trans ID","First Time","Last Time","Last Updt"])
+        i += 1    
         ##write to file data from search.json
         for ap in data1['results']:
             ssid =  str(ap['ssid'])
@@ -44,40 +51,3 @@ def main():
             lupdt = str(ap['lastupdt'])
             lupdt = to_Manila_timezone(lupdt)
             write_file.writerow([ssid, netid, trilat, trilong, enc, ap_type, transid, ftime, ltime, lupdt])
-
-        ##write to file data from search2.json
-        for ap in data2['results']:
-            ssid =  str(ap['ssid'])
-            netid =  str(ap['netid'])
-            trilat = str(ap['trilat'])
-            trilong = str(ap['trilong'])
-            enc = str(ap['encryption'])
-            ap_type = str(ap['type'])
-            transid = str(ap['transid'])
-            ftime = str(ap['firsttime'])
-            ftime = to_Manila_timezone(ftime)
-            ltime = str(ap['lasttime'])
-            ltime = to_Manila_timezone(ltime)
-            lupdt = str(ap['lastupdt'])
-            lupdt = to_Manila_timezone(lupdt)
-            write_file.writerow([ssid, netid, trilat, trilong, enc, ap_type, transid, ftime, ltime, lupdt])
-
-        ##write to file data from search3.json
-        for ap in data3['results']:
-            ssid =  str(ap['ssid'])
-            netid =  str(ap['netid'])
-            trilat = str(ap['trilat'])
-            trilong = str(ap['trilong'])
-            enc = str(ap['encryption'])
-            ap_type = str(ap['type'])
-            transid = str(ap['transid'])
-            ftime = str(ap['firsttime'])
-            ftime = to_Manila_timezone(ftime)
-            ltime = str(ap['lasttime'])
-            ltime = to_Manila_timezone(ltime)
-            lupdt = str(ap['lastupdt'])
-            lupdt = to_Manila_timezone(lupdt)
-            write_file.writerow([ssid, netid, trilat, trilong, enc, ap_type, transid, ftime, ltime, lupdt])
-
-if __name__ == main:
-    main()

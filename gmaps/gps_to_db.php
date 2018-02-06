@@ -9,7 +9,7 @@
 		die('Cant use db: '. mysqli_error($connect));
 	}
 	
-	$myfile = fopen("trike_gps_readings.txt", "r") or die("Unable to open file!");
+	$myfile = fopen("teachersvill/gps_readings.txt", "r") or die("Unable to open file!");
 	while(!feof($myfile)) {
 		$line = fgets($myfile);
 		$array = explode(">>",$line);

@@ -12,7 +12,7 @@ class AP:
 		self.rssi = rssi
 		self.channel = channel
 
-with open('wigle-76.csv','rb') as csvfile:
+with open('teachersvill/WigleWifi_20180205111451.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='|')
 	i = 0
 	for row in reader:
