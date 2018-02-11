@@ -15,7 +15,7 @@ class AP:
 
 ##read Wigle trace
 i = 0		
-with open('trace_01312018.csv','rb') as csvfile:
+with open('trace.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for line in reader:
 		if i > 1:		##ignore first line
@@ -33,7 +33,7 @@ print "APs in 1-13: " + str(len(wigle_list))
 
 ##read RPi trace
 i = 0			
-with open('z_trace_01312018.csv','rb') as csvfile:
+with open('z_trace.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for line in reader:
 		if i != 0:		##ignore first line
@@ -76,7 +76,7 @@ for i in range(len(rpi_index)):
 print "Common APs: " + str(len(common_list))
 print "Unique 1-13: " + str(len(wigle_list))
 print "Unique 1,6,11: " + str(len(rpi_list))
-with open('log_traces_01312018.csv','wb') as csvfile:
+with open('1-13x1611.csv','wb') as csvfile:
 	write_file = csv.writer(csvfile, delimiter = ',')
 	
 	##write common aps

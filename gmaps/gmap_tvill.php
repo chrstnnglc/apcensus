@@ -229,6 +229,8 @@
 		<input onclick="toggleW()" type="button" value="Wigle" id="w_button" class="buttons active">
 		<input onclick="toggleTime()" type="button" value="Time Spent" id="time_button" class="buttons inactive">
 		<input onclick="toggleSpeed()" type="button" value="Speed" id="speed_button" class="buttons inactive">
+		<span style="font-size: 20px;">|</span>
+		<input onclick="getWDBtxt()" type="button" value="Filter Wigle DB" id="output_button" class="buttons active">
 	</div>
 
 <script>
@@ -259,6 +261,8 @@ var rectSpeedArr = [];
 var gps_lat = [];
 var gps_lng = [];
 var gps_timeArr = [];
+var has_readings = [];
+var ws_macs = [];
 var map, rp_count, w_count, ws_count, rect_count, total_count;
 
 function gridMap() { 
@@ -272,7 +276,6 @@ function gridMap() {
 	);
 	//initialize infoWindow
 	var infoWindow = new google.maps.InfoWindow;
-	var macs = [];
 
 	downloadUrl('test_g_fetch.php', function(data) {
 		var xml = data.responseXML;
@@ -309,8 +312,8 @@ function gridMap() {
 			else if (label == "wiglesite"){
 				ws_lat.push(parseFloat(ap.getAttribute('lat')));
 				ws_lng.push(parseFloat(ap.getAttribute('lng')));
+				ws_macs.push(mac);
 			}
-			macs.push(mac);
 			//set the content of the infoWindow
 			var infowincontent = document.createElement('div');
 			var strong = document.createElement('strong');
@@ -511,15 +514,18 @@ function gridMap() {
 		console.log(south);
 		console.log(east);
 		console.log("Total Count: " + total_count);
+		
 		//count how many seconds did we stay inside the rectangle
 		for(i = 0; i < rectArr.length; i++){
 			first_time = 0
+			gps_readings = 0
 			for(x = 0; x < gps_lat.length; x++){
 				var point = new google.maps.LatLng(gps_lat[x], gps_lng[x]);
 				if(rectArr[i].getBounds().contains(point)){
 					if(first_time == 0){
 						start = gps_timeArr[x];
 						first_time = 1;
+						gps_readings = 1;
 						if(i==80){
 							console.log("Start: " + start);
 						}
@@ -527,6 +533,7 @@ function gridMap() {
 					}
 				}
 				else{
+					//if there was a previous gps reading in this box
 					if(first_time == 1){
 						time_spent = parseInt((gps_timeArr[x] - start)/1000);
 						if(i==80){
@@ -537,12 +544,14 @@ function gridMap() {
 						first_time = 0;
 						end_point = point
 						
+						//compute for the speed
 						var distance = google.maps.geometry.spherical.computeDistanceBetween(start_point, end_point);
 						speed = distance / time_spent;
 						rectSpeedArr[i] += speed;
 					}
 				}
 			}
+			has_readings.push(gps_readings);
 		}
 		//add event listners for each rectangle and get the count in that rectangle
 		for(i = 0; i < rectArr.length; i++){
@@ -564,6 +573,7 @@ function gridMap() {
 	//add the list of legend, and toggle buttons in the map
 	map.controls[google.maps.ControlPosition.RIGHT_TOP].push(document.getElementById('legend_cont'));
 	map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('selection_buttons'));
+	
 }
 
 function countRectAP(){
@@ -915,6 +925,26 @@ function toggleSpeed(){
 	if(document.getElementById("time_button").classList.contains("active")){
 		document.getElementById("time_button").classList.remove("active");
 		document.getElementById("time_button").classList.add("inactive");
+	}
+}
+
+function getWDBtxt(){
+	var filter_count = 0;
+	var filtered_ws_macs = [];
+	for(i = 0; i < rectArr.length; i++){
+		//only check those rectangle with gps readings
+		if(has_readings[i] == 1){
+			for(x = 0; x < ws_lat.length; x++){
+				var point = new google.maps.LatLng(ws_lat[x], ws_lng[x]);
+				if(rectArr[i].getBounds().contains(point)){
+					filter_count++;
+					filtered_ws_macs.push(ws_macs[x]);
+				}
+			}
+		}
+	}
+	for(i=0; i< filtered_ws_macs.length; i++){
+		console.log(filtered_ws_macs[i]);
 	}
 }
 

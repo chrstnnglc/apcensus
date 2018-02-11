@@ -17,7 +17,7 @@ class AP:
 		
 ##read Wigle trace
 i = 0		
-with open('wigle-76.csv','rb') as csvfile:
+with open('WigleWifi_20180205111451.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for line in reader:
 		if i > 1:	##ignore first 2 lines
@@ -35,9 +35,9 @@ with open('wigle-76.csv','rb') as csvfile:
 
 print "APs in Wigle: " + str(len(wigle_list))		
 
-##read RPi trace
+
 i = 0			
-with open('wiglesite_list.csv','rb') as csvfile:
+with open('ap_list.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for line in reader:
 		if i != 0:		##ignore first line
@@ -67,7 +67,6 @@ for wigle in wigle_list:
 			wigle_index.append(wigle.bssid)
 			site_index.append(site.bssid)
 
-##remove common aps in wigle and rpi list
 for i in range(len(site_index)):
 	for wigle in wigle_list:
 		if wigle_index[i] == wigle.bssid:
@@ -82,7 +81,7 @@ for i in range(len(site_index)):
 print "Common APs: " + str(len(common_list))
 print "Unique Wigle: " + str(len(wigle_list))
 print "Unique Site: " + str(len(site_list))
-with open('wiglexsite-76.csv','wb') as csvfile:
+with open('wiglexsite.csv','wb') as csvfile:
 	write_file = csv.writer(csvfile, delimiter = ',')
 	
 	##write common aps

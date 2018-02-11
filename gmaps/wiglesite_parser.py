@@ -1,6 +1,6 @@
 import csv
 
-res_file = open("area2/parsed_wiglesite.txt","w")
+res_file = open("teachersvill/parsed_wiglesite.txt","w")
 
 unique_bssid = []
 wigle_list = []
@@ -13,7 +13,7 @@ class AP:
 		self.rssi = rssi
 		self.channel = channel
 
-with open('area2/ap_list.csv','rb') as csvfile:
+with open('teachersvill/ap_list.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='|')
 	i = 0
 	for row in reader:
@@ -29,8 +29,10 @@ with open('area2/ap_list.csv','rb') as csvfile:
 			lat = line[2]
 			lng = line[3]
 			coord = "%s,%s" %(lat,lng)
-			new_ap = AP(ssid,bssid,coord,rssi,channel)
-			wigle_list.append(new_ap)
+			if bssid not in unique_bssid:
+				unique_bssid.append(bssid)
+				new_ap = AP(ssid,bssid,coord,rssi,channel)
+				wigle_list.append(new_ap)
 		i += 1
 		
 for item in wigle_list:

@@ -9,7 +9,7 @@
 		die('Cant use db: '. mysqli_error($connect));
 	}
 	
-	$myfile = fopen("area2/parsed_wiglesite.txt", "r") or die("Unable to open file!");
+	$myfile = fopen("teachersvill/parsed_wiglesite.txt", "r") or die("Unable to open file!");
 	while(!feof($myfile)) {
 		$line = fgets($myfile);
 		$array = explode("|",$line);

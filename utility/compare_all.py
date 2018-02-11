@@ -6,6 +6,8 @@ rpi2_list = []
 rpi_list = []
 common_list = []
 wigle_list = []
+site_list = []
+rpi_wigle_common = []
 common_all = []
 class AP:
 	def __init__(self, bssid=None, ssid=None, channel=None,enc=None):
@@ -15,6 +17,7 @@ class AP:
 		self.enc = enc
 		self.r_channel = ""
 		self.r_enc = ""
+		self.last = ""
 		
 		self.avg_rssi = 0
 		self.sum_rssi = 0
@@ -27,9 +30,9 @@ class AP:
 	def compute_avg_rssi(self):				
 		self.avg_rssi = self.sum_rssi / self.num_readings
 
-##read Rpi trace
+##read Rpi 1-13 trace
 i = 0		
-with open('trace_01312018.csv','rb') as csvfile:
+with open('trace.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for line in reader:
 		if i > 1:		##ignore first line
@@ -45,9 +48,9 @@ with open('trace_01312018.csv','rb') as csvfile:
 
 print "APs in 1-13: " + str(len(rpi2_list))		
 
-##read RPi trace
+##read RPi 1,6,11 trace
 i = 0			
-with open('z_trace_01312018.csv','rb') as csvfile:
+with open('z_trace.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for line in reader:
 		if i != 0:		##ignore first line
@@ -65,7 +68,7 @@ print "APs in 1,6,11: " + str(len(rpi_list))
 
 ##read Wigle trace
 i = 0		
-with open('WigleWifi_20180131130130.csv','rb') as csvfile:
+with open('WigleWifi_20180205111451.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for line in reader:
 		if i > 1:	##ignore first 2 lines
@@ -95,6 +98,25 @@ with open('WigleWifi_20180131130130.csv','rb') as csvfile:
 
 print "APs in WiGLE: " + str(len(wigle_list))
 
+##read Wigle site trace
+i = 0			
+with open('ap_list.csv','rb') as csvfile:
+	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+	for line in reader:
+		if i != 0:		##ignore first line
+			
+			ssid = line[0]
+			bssid = line[1]
+			enc = line[4]
+			last = line[9]
+			
+			new_ap = AP(bssid,ssid,channel,enc)
+			new_ap.last = last
+			site_list.append(new_ap)
+		i += 1
+		
+print "APs in Wigle Site: " + str(len(site_list))
+
 ##compare 1-13 and 1,6,11
 rpi_index = []
 rpi2_index = []		
@@ -116,9 +138,19 @@ for wigle in wigle_list:
 			wigle.r_channel = common.channel
 			wigle.r_avg_rssi = common.r_avg_rssi
 			wigle.r_enc = common.enc
-			common_all.append(wigle)
+			rpi_wigle_common.append(wigle)
 			##remember bssid so we can remove them in rpi/wigle_list
 			wigle_index.append(wigle.bssid)
+
+##compare the resulting list above with the wigle site
+site_index = []		
+for common in rpi_wigle_common:
+	for site in site_list:
+		##if same ang bssid, ibig sabihin nakita sa both device. Add data of rpi to wigle reading then put to common list
+		if common.bssid.upper() == site.bssid:
+			common_all.append(common)
+			##remember bssid so we can remove them in rpi/wigle_list
+			site_index.append(site.bssid)
 			
 ##compare wigle with 1,6,11
 wx1611 = 0
@@ -147,6 +179,35 @@ for wigle in wigle_list:
 			##remember bssid so we can remove them in rpi/wigle_list
 			wigle_index.append(wigle.bssid)
 			rpi2_index.append(rpi.bssid)
+
+##compare wigle with wigle site
+wxs = 0
+for wigle in wigle_list:
+	for site in site_list:
+		##if same ang bssid, ibig sabihin nakita sa both device. Add data of rpi to wigle reading then put to common list
+		if wigle.bssid.upper() == site.bssid:
+			wxs  += 1
+			##remember bssid so we can remove them in rpi/wigle_list
+			wigle_index.append(wigle.bssid)
+			site_index.append(site.bssid)
+			
+##compare 1-13 with wigle site
+sx113 = 0
+for rpi in rpi2_list:
+	for site in site_list:
+		if rpi.bssid.upper() == site.bssid:
+			sx113 += 1
+			rpi2_index.append(rpi.bssid)
+			site_index.append(site.bssid)
+			
+##compare 1,6,11 with wigle site
+sx1611 = 0
+for rpi in rpi_list:
+	for site in site_list:
+		if rpi.bssid.upper() == site.bssid:
+			sx1611 += 1
+			rpi_index.append(rpi.bssid)
+			site_index.append(site.bssid)
 			
 ##remove not unique ap in wigle list
 for i in range(len(wigle_index)):
@@ -166,25 +227,35 @@ for i in range(len(rpi_index)):
 		if rpi_index[i] == rpi.bssid:
 			rpi_list.remove(rpi)
 			break
+##remove not unique in wigle site
+for i in range(len(site_index)):
+	for site in site_list:
+		if site_index[i] == site.bssid:
+			site_list.remove(site)
+			break
 
 ##print final data in csv file
 print "------------------------------------"
 print "Common APs between 1-13 and 1,6,11: " + str(len(common_list))
 print "Common APs between 1,6,11 and WiGLE: " + str(wx1611)
 print "Common APs between 1-13 and WiGLE: " + str(wx113)
-print "Common APs in all: " + str(len(common_all))
+print "Common Aps between Wigle and Wigle DB:" + str(wxs)
+print "Common Aps between 1-13 and Wigle DB:" + str(sx113)
+print "Common Aps between 1,6,11 and Wigle DB:" + str(sx1611)
+print "Common APs in all: " + str(len(rpi_wigle_common))
 print "------------------------------------"
 print "Unique 1-13: " + str(len(rpi2_list))
 print "Unique 1,6,11: " + str(len(rpi_list))
 print "Unique WiGLE: " + str(len(wigle_list))
+print "Unique WiGLE DB: " + str(len(site_list))
 
-with open('log_xall_01312018.csv','wb') as csvfile:
+with open('xall.csv','wb') as csvfile:
 	write_file = csv.writer(csvfile, delimiter = ',')
 	
 	##write common aps
-	write_file.writerow(["Common in ALL",str(len(common_all))])
+	write_file.writerow(["Common in ALL",str(len(rpi_wigle_common))])
 	write_file.writerow(["BSSID","SSID","Wigle-Encryption","RPi-Encryption","Wigle-Channel","RPi-Channel","Wigle Avg RSSI","RPi Avg RSSI"])
-	for item in common_all:
+	for item in rpi_wigle_common:
 		write_file.writerow([str(item.bssid),str(item.ssid),str(item.enc),str(item.r_enc),str(item.channel),str(item.r_channel),str(item.avg_rssi),str(item.r_avg_rssi)])
 	
 	##write unique aps in wigle
@@ -207,3 +278,12 @@ with open('log_xall_01312018.csv','wb') as csvfile:
 	write_file.writerow(["BSSID","SSID","RPi-Encryption","RPi-Channel","RPi Avg RSSI"])
 	for item in rpi2_list:
 		write_file.writerow([str(item.bssid),str(item.ssid),str(item.enc),str(item.channel),str(item.r_avg_rssi)])
+	
+	##write unique aps in wigle site
+	##write unique aps in site
+	write_file.writerow([" "])
+	write_file.writerow(["Wigle Site Unique", str(len(site_list))])
+	write_file.writerow(["BSSID","SSID","Site-Encryption","Last Update"])
+	for item in site_list:
+		write_file.writerow([str(item.bssid).upper(),str(item.ssid),str(item.enc),str(item.last)])
+	

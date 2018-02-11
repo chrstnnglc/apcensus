@@ -17,7 +17,7 @@ class AP:
 		
 ##read rpi trace
 i = 0		
-with open('log-76.csv','rb') as csvfile:
+with open('z_trace.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for line in reader:
 		if i != 0:	##ignore first line
@@ -37,7 +37,7 @@ print "APs in Rpi: " + str(len(rpi_list))
 
 ##read Site trace
 i = 0			
-with open('wiglesite_list.csv','rb') as csvfile:
+with open('ap_list.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for line in reader:
 		if i != 0:		##ignore first line
@@ -82,7 +82,7 @@ for i in range(len(site_index)):
 print "Common APs: " + str(len(common_list))
 print "Unique Rpi: " + str(len(rpi_list))
 print "Unique Site: " + str(len(site_list))
-with open('rpixsite-76.csv','wb') as csvfile:
+with open('1611xsite.csv','wb') as csvfile:
 	write_file = csv.writer(csvfile, delimiter = ',')
 	
 	##write common aps
