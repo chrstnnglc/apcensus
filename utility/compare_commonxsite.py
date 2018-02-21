@@ -1,4 +1,4 @@
-##THIS COMPARES Wigle.csv readings and data from Wigle Site
+##THIS COMPARES wiglexrpi with Wigle DB
 import csv
 
 unique_bssid = []
