@@ -1,5 +1,5 @@
 #this will analyze the ssids of our trace files
-
+from oui_dict import *
 import csv
 
 unique_bssid = []
@@ -28,7 +28,45 @@ class AP:
 		self.ssid = ssid
 		self.channel = channel
 		self.enc = enc
-		
+
+#check each ssid if it falls under the list
+def ssid_check(ssid):
+        ssid_lower_case = ssid.lower()
+        if "pldt" in ssid_lower_case:
+                pldt.append(new_ap)
+        elif "huawei" in ssid_lower_case:
+                huawei.append(new_ap)
+        elif "globe" in ssid_lower_case:
+                globe.append(new_ap)
+        elif "smart" in ssid_lower_case:
+                smart.append(new_ap)
+        elif "tp-link" in ssid_lower_case:
+                tplink.append(new_ap)
+        elif "bayandsl" in ssid_lower_case:
+                bayandsl.append(new_ap)
+        elif "android" in ssid_lower_case:
+                android.append(new_ap)
+        elif "aztech" in ssid_lower_case:
+                aztech.append(new_ap)
+        elif "zte" in ssid_lower_case:
+                zte.append(new_ap)
+        elif "netgear" in ssid_lower_case:
+                netgear.append(new_ap)
+        elif "iphone" in ssid_lower_case:
+                iphone.append(new_ap)
+        elif "skybroadband" in ssid_lower_case:
+                sky.append(new_ap)
+        elif "evohotspot" in ssid_lower_case:
+                evo.append(new_ap)
+        elif "fiberhome" in ssid_lower_case:
+                fiberhome.append(new_ap)
+        elif "homebro" in ssid_lower_case:
+                homebro.append(new_ap)
+        elif "" == ssid_lower_case:
+                blank.append(new_ap)
+        else:
+                unidentified.append(new_ap)
+
 #read trace file
 i = 0			
 with open('area2.csv','rb') as csvfile:
@@ -41,50 +79,20 @@ with open('area2.csv','rb') as csvfile:
 			ssid = line[1]
 			enc = line[2]
 			channel = line[3]
-
+			#this will be used for oui lookup
+                        mac = bssid.upper()
+                        mac = mac[0:8]
                         #only check unique aps
 			if bssid not in unique_bssid:
                             new_ap = AP(bssid,ssid,channel,enc)
                             unique_bssid.append(bssid)
-
                             #check each ssid if it falls under the list
-                            ssid_lower_case = ssid.lower()
-                            if "pldt" in ssid_lower_case:
-                                pldt.append(new_ap)
-                            elif "huawei" in ssid_lower_case:
-                                huawei.append(new_ap)
-                            elif "globe" in ssid_lower_case:
-                                globe.append(new_ap)
-                            elif "smart" in ssid_lower_case:
-                                smart.append(new_ap)
-                            elif "tp-link" in ssid_lower_case:
-                                tplink.append(new_ap)
-                            elif "bayandsl" in ssid_lower_case:
-                                bayandsl.append(new_ap)
-                            elif "android" in ssid_lower_case:
-                                android.append(new_ap)
-                            elif "aztech" in ssid_lower_case:
-                                aztech.append(new_ap)
-                            elif "zte" in ssid_lower_case:
-                                zte.append(new_ap)
-                            elif "netgear" in ssid_lower_case:
-                                netgear.append(new_ap)
-                            elif "iphone" in ssid_lower_case:
-                                iphone.append(new_ap)
-                            elif "skybroadband" in ssid_lower_case:
-                                sky.append(new_ap)
-                            elif "evohotspot" in ssid_lower_case:
-                                evo.append(new_ap)
-                            elif "fiberhome" in ssid_lower_case:
-                                fiberhome.append(new_ap)
-                            elif "homebro" in ssid_lower_case:
-                                homebro.append(new_ap)
-                            elif "" == ssid_lower_case:
-                                blank.append(new_ap)
-                            else:
-                                unidentified.append(new_ap)
+                            ssid_check(ssid)
+                            #check the vendor of the ap
+                            oui_lookup(mac)
 			
 		i += 1
+'''
 i = 0
 with open('hs_trace.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
@@ -305,7 +313,7 @@ with open('trace_01312018.csv','rb') as csvfile:
                                 unidentified.append(new_ap)
 			
 		i += 1
-
+'''
 print "Total APS: " + str(len(unique_bssid))
 print "PLDT: " + str(len(pldt))
 print "HUAWEI: " + str(len(huawei))
@@ -325,7 +333,7 @@ print "HOMEBRO: " + str(len(homebro))
 print "NO NAME: " + str(len(blank))
 print "UNIDENTIFIED: " + str(len(unidentified))
 
-
+'''
 with open('group_ssid.csv','wb') as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
 
@@ -430,4 +438,4 @@ with open('group_ssid.csv','wb') as csvfile:
     write_file.writerow(["BSSID","SSID","Encryption","Channel"])
     for item in unidentified:
         write_file.writerow([str(item.bssid),str(item.ssid),str(item.enc),str(item.channel)])
-    
+'''   
