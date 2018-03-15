@@ -1,0 +1,155 @@
+2c:e6:cc:18:83:98 > dcs faculty
+2c:e6:cc:58:83:98 > sclwifi
+2c:e6:cc:98:83:98 > dcs vip wifi
+2c:e6:cc:d8:83:98 > s3wifi
+2c:e6:cc:18:83:99 > ndsgwifi
+2c:e6:cc:98:83:99 > wsgwifi
+2c:e6:cc:18:83:9a > cvmigwifi
+2c:e6:cc:58:83:9a > Bayanihan@DCS
+2c:e6:cc:98:83:9a > dcs infrastructure
+2c:e6:cc:18:83:9b > cs131
+2c:e6:cc:98:fe:88 > dcs vip wifi
+2c:e6:cc:d8:fe:88 > s3wifi
+2c:e6:cc:18:fe:89 > ndsgwifi
+2c:e6:cc:58:fe:89 > dcs faculty 5GHz
+2c:e6:cc:98:fe:89 > wsgwifi
+2c:e6:cc:d8:fe:89 > bayanihan
+2c:e6:cc:18:fe:8a > cvmigwifi
+2c:e6:cc:58:fe:8a > Bayanihan@DCS
+2c:e6:cc:98:fe:8a > dcs infrastructure
+2c:e6:cc:d8:fe:8a > dcs network
+2c:e6:cc:18:fe:8b > cs131
+94:a7:b7:3c:ef:cd > bayanDSLWIFI_EFCD
+2c:e6:cc:58:83:99 > dcs faculty 5GHz
+2c:e6:cc:d8:83:99 > bayanihan
+2c:e6:cc:d8:83:9a > dcs network
+2c:e6:cc:1a:6a:bb > cs131
+2c:e6:cc:18:fe:88 > dcs faculty
+2c:e6:cc:58:fe:88 > sclwifi
+2c:e6:cc:da:6a:ba > dcs network
+6c:3b:6b:3c:65:ae > BNETSHOME_1
+6e:3b:6b:3c:65:ae > BNETSGUEST
+2c:e6:cc:9a:6a:ba > dcs infrastructure
+2c:e6:cc:9a:6a:38 > dcs vip wifi
+2c:e6:cc:1a:6a:39 > ndsgwifi
+2c:e6:cc:9a:6a:39 > wsgwifi
+6c:3b:6b:a0:7a:df > BNETSHOME_2
+6e:3b:6b:a0:7a:df > BNETSGUEST
+2c:e6:cc:5a:6a:3a > Bayanihan@DCS
+2c:e6:cc:da:6a:3a > dcs network
+2c:e6:cc:5a:6a:39 > dcs faculty 5GHz
+2c:e6:cc:da:6a:38 > s3wifi
+92:8d:78:99:2a:24 > ACL_grad
+2c:e6:cc:18:8e:88 > dcs faculty
+2c:e6:cc:1a:6a:38 > dcs faculty
+2c:e6:cc:1a:6a:3a > cvmigwifi
+2c:e6:cc:9a:6a:3a > dcs infrastructure
+2c:e6:cc:1a:6a:3b > cs131
+2c:e6:cc:58:8e:89 > dcs faculty 5GHz
+2c:e6:cc:98:8e:89 > wsgwifi
+2c:e6:cc:d8:8e:89 > bayanihan
+2c:e6:cc:18:8e:8a > cvmigwifi
+2c:e6:cc:5a:6a:38 > sclwifi
+2c:e6:cc:da:6a:39 > bayanihan
+2c:e6:cc:98:8e:88 > dcs vip wifi
+2c:e6:cc:d8:87:68 > s3wifi
+2c:e6:cc:58:8e:8a > Bayanihan@DCS
+2c:e6:cc:98:8e:8a > dcs infrastructure
+2c:e6:cc:d8:8e:8a > dcs network
+2c:e6:cc:58:8e:88 > sclwifi
+2c:e6:cc:d8:8e:88 > s3wifi
+2c:e6:cc:18:8e:89 > ndsgwifi
+2c:e6:cc:d8:87:69 > bayanihan
+2c:e6:cc:18:87:6a > cvmigwifi
+2c:e6:cc:18:8e:8b > cs131
+2c:e6:cc:18:87:6b > cs131
+2c:e6:cc:58:87:68 > sclwifi
+2c:e6:cc:d8:87:6a > dcs network
+00:1e:52:7a:db:69 > WSGWifi
+2c:e6:cc:18:8e:69 > ndsgwifi
+2c:e6:cc:98:87:69 > wsgwifi
+2c:e6:cc:18:8e:68 > dcs faculty
+2c:e6:cc:1a:5f:c9 > ndsgwifi
+2c:e6:cc:5a:5f:ca > Bayanihan@DCS
+2c:e6:cc:58:88:68 > sclwifi
+2c:e6:cc:98:88:68 > dcs vip wifi
+2c:e6:cc:58:88:69 > dcs faculty 5GHz
+2c:e6:cc:98:88:69 > wsgwifi
+2c:e6:cc:5a:5f:c8 > sclwifi
+2c:e6:cc:da:5f:c8 > s3wifi
+2c:e6:cc:d8:88:6a > dcs network
+2c:e6:cc:9a:5f:ca > dcs infrastructure
+2c:e6:cc:d8:88:68 > s3wifi
+2c:e6:cc:18:88:69 > ndsgwifi
+2c:e6:cc:9a:5f:c8 > dcs vip wifi
+2c:e6:cc:da:5f:c9 > bayanihan
+2c:e6:cc:da:5f:ca > dcs network
+2c:e6:cc:1a:5f:cb > cs131
+2c:e6:cc:18:88:68 > dcs faculty
+2c:e6:cc:5a:5f:c9 > dcs faculty 5GHz
+2c:e6:cc:1a:5f:ca > cvmigwifi
+2c:e6:cc:18:88:6a > cvmigwifi
+2c:e6:cc:d8:88:69 > bayanihan
+2c:e6:cc:18:88:6b > cs131
+2c:e6:cc:9a:5f:c9 > wsgwifi
+2c:e6:cc:98:88:6a > dcs infrastructure
+2c:e6:cc:58:88:6a > Bayanihan@DCS
+2c:e6:cc:1a:5f:c8 > dcs faculty
+00:18:39:0c:fa:0a > BIBUSF_28
+24:79:2a:75:16:48 > DILNET
+24:79:2a:f5:16:48 > ENGG-Faculty-Staff-WiFi
+24:79:2a:35:16:49 > ENGGNET
+24:79:2a:b5:16:49 > _WiFi@UPD
+24:79:2a:75:16:49 > InternalWS
+24:79:2a:f5:19:d8 > InternalWS
+24:79:2a:75:19:d8 > ENGG-Faculty-Staff-WiFi
+24:79:2a:35:19:d8 > DILNET
+24:79:2a:b5:19:d8 > ENGGNET
+2c:e6:cc:9a:6a:b8 > dcs vip wifi
+2c:e6:cc:1a:6a:b9 > ndsgwifi
+2c:e6:cc:5a:6a:b9 > dcs faculty 5GHz
+2c:e6:cc:9a:6a:b9 > wsgwifi
+2c:e6:cc:da:6a:b9 > bayanihan
+2c:e6:cc:1a:6a:ba > cvmigwifi
+2c:e6:cc:5a:6a:ba > Bayanihan@DCS
+2c:e6:cc:1a:6a:b8 > dcs faculty
+2c:e6:cc:5a:6a:b8 > sclwifi
+2c:e6:cc:da:6a:b8 > s3wifi
+2c:e6:cc:58:87:6a > Bayanihan@DCS
+2c:e6:cc:18:87:68 > dcs faculty
+b0:c1:9e:4b:ce:a8 > Reconnecting...
+2c:e6:cc:98:87:68 > dcs vip wifi
+94:10:3e:c6:50:b4 > 
+74:4a:a4:a8:4a:c9 > Ate ZTE
+24:79:2a:35:19:d9 > _WiFi@UPD
+2c:e6:cc:18:87:69 > ndsgwifi
+2c:e6:cc:98:87:6a > dcs infrastructure
+2c:e6:cc:58:87:69 > dcs faculty 5GHz
+2c:e6:cc:98:8e:68 > dcs vip wifi
+2c:e6:cc:d8:8e:68 > s3wifi
+2c:e6:cc:58:8e:68 > sclwifi
+2c:e6:cc:58:8e:69 > dcs faculty 5GHz
+b8:55:10:2a:cd:74 > es26python
+24:79:2a:35:14:a8 > DILNET
+2c:e6:cc:98:8e:69 > wsgwifi
+2c:e6:cc:18:8e:6a > cvmigwifi
+2c:e6:cc:d8:8e:69 > bayanihan
+24:79:2a:f5:14:f8 > ENGGNET
+24:79:2a:b5:14:f8 > ENGG-Faculty-Staff-WiFi
+24:79:2a:35:14:f9 > InternalWS
+24:79:2a:35:14:f8 > DILNET
+2c:e6:cc:58:8e:6a > Bayanihan@DCS
+2c:e6:cc:98:8e:6a > dcs infrastructure
+2c:e6:cc:d8:8e:6a > dcs network
+2c:e6:cc:18:8e:6b > cs131
+24:79:2a:75:14:f9 > _WiFi@UPD
+00:02:6f:45:26:27 > upeeehome3
+24:79:2a:75:14:09 > DILNET-WIFI-E
+00:23:69:33:c1:4f > csgwifi
+20:aa:4b:e1:84:0f > csgwifidsl
+74:44:01:51:ff:24 > EPRL
+04:4f:aa:8c:b2:08 > _WiFi@UPD
+04:4f:aa:0c:b2:09 > DILNET-WIFI
+04:4f:aa:0c:b2:08 > UPEEEI
+04:4f:aa:4c:b2:08 > UPEEEI-Guest
+04:4f:aa:cc:b2:08 > Bayanihan@EEEI

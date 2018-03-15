@@ -1,0 +1,8 @@
+00:13:33:fb:06:5a > PLDTHOMEDSLfranniel
+30:b5:c2:27:0f:0a > kapitbahay_1
+00:1e:c8:a0:6a:92 > wifinaminto
+00:13:33:dd:0c:84 > PLDTHOMEDSL
+94:46:96:1f:a6:ad > PLDTHOMEDSLDNDN0
+b0:b2:dc:73:f1:24 > PLDTMyDSL_serenity
+00:13:33:c0:60:a7 > PLDTHOMEDSLBAWALWIFI
+60:a4:4c:43:95:08 > Ruby 
