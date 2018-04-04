@@ -1,0 +1,506 @@
+c8:d7:19:e7:b8:80 > OCG DIRECTOR WIFI
+6c:aa:b3:5b:cf:68 > WiFi@UPD
+6c:aa:b3:1b:cf:68 > DILNET-WIFI
+30:e1:71:ef:a1:a4 > DIRECT-A3-HP DeskJet 4670 series
+00:24:01:1a:3c:e3 > Philippine Collegian Office
+0c:f4:d5:3f:1d:78 > WiFi@UPD
+50:f0:d3:10:21:da > zaira
+c0:25:e9:57:a1:2e > TP-LINK_A12E
+e0:b9:4d:59:26:a2 > Novatek_boss
+ee:1d:7f:c6:40:6d > macmoe22
+c8:d7:19:e7:ab:fb > UPIS-COMPLAB-2
+34:ba:9a:50:3d:75 > Smart_Bro_503D75
+c8:14:51:59:ec:1e > HUAWEI-EC1E
+6c:aa:b3:1b:da:48 > DILNET-WIFI
+6c:aa:b3:5b:da:48 > WiFi@UPD
+6c:aa:b3:1b:dc:18 > DILNET-WIFI
+6c:aa:b3:5b:dc:18 > WiFi@UPD
+00:21:27:fe:f7:10 > UP ACAD UNION
+34:ba:9a:57:66:8a > Transporter
+c8:3a:35:4b:96:a8 > OSSS
+aa:a6:68:74:cf:d2 > magpaload ka!
+0c:f4:d5:3f:54:48 > DILNET-WIFI
+0c:f4:d5:7f:54:48 > WiFi@UPD
+34:ba:9a:54:9e:a5 > Pocketwifi
+0c:f4:d5:7f:69:68 > WiFi@UPD
+d8:50:e6:ad:3e:58 > PIIC
+0c:f4:d5:3f:21:08 > WiFi@UPD
+0c:f4:d5:3f:1d:c8 > WiFi@UPD
+24:79:2a:00:8e:18 > DILNET-WIFI
+24:79:2a:40:8e:18 > WiFi@UPD
+38:a2:8c:92:f4:7f > Mitsubishi Wireless TV 446
+2e:33:61:f3:50:07 > PatGan
+3e:5c:f2:02:5d:ef > Hi
+d0:b1:28:68:26:15 > Hannah
+34:ba:9a:56:15:29 > Fighting!
+00:4f:81:05:fe:90 > Wireless@Mainlib
+a6:89:ad:c5:cf:9b > Sam's iPhone
+b4:5d:50:37:a9:c5 > ITDCTEAM
+20:aa:4b:df:66:44 > CFME2
+90:94:e4:34:04:0c > 209A wifi
+0c:f4:d5:3f:90:a8 > WiFi@UPD
+0c:f4:d5:7f:90:a8 > DILNET-WIFI
+0c:f4:d5:7f:18:c8 > DILNET-WIFI
+0c:f4:d5:3f:18:c8 > WiFi@UPD
+0c:f4:d5:3f:a3:18 > DILNET-WIFI
+0c:f4:d5:3f:8a:c8 > WiFi@UPD
+34:8f:27:21:0c:68 > i-Commons
+0c:f4:d5:3f:23:08 > WiFi@UPD
+0c:f4:d5:7f:23:08 > DILNET-WIFI
+0c:f4:d5:7f:1f:48 > DILNET-WIFI
+34:8f:27:61:0c:68 > Wireless2
+0c:f4:d5:3f:17:68 > WiFi@UPD
+0c:f4:d5:7f:17:68 > DILNET-WIFI
+0c:f4:d5:7f:21:88 > DILNET-WIFI
+0c:f4:d5:3f:8c:68 > DILNET-WIFI
+0c:f4:d5:3f:21:88 > WiFi@UPD
+0c:f4:d5:3f:54:28 > WiFi@UPD
+0c:f4:d5:7f:5e:28 > WiFi@UPD
+0c:f4:d5:3f:5e:28 > DILNET-WIFI
+0c:f4:d5:3f:1a:c8 > WiFi@UPD
+0c:f4:d5:3f:53:f8 > WiFi@UPD
+b4:5d:50:37:d3:25 > ITDCTEAM
+b4:5d:50:37:d3:22 > UP_LAW_STAFF
+b4:5d:50:37:d3:20 > UP Law Student and Guest
+b4:5d:50:37:d3:21 > UP_LAW_FACULTY
+b4:5d:50:37:d3:23 > UP_LAW_DEAN
+b4:5d:50:37:d3:24 > Event
+54:b1:21:e5:cb:d8 > HUAWEI-CBD8
+b4:5d:50:37:a9:c4 > Event
+b4:5d:50:37:a9:c3 > UP_LAW_DEAN
+b4:5d:50:72:86:22 > UP_LAW_STAFF
+b4:5d:50:72:61:22 > UP_LAW_STAFF
+b4:5d:50:72:86:24 > Event
+b4:5d:50:37:a9:c0 > UP Law Student and Guest
+b4:5d:50:37:a9:c1 > UP_LAW_FACULTY
+b4:5d:50:37:a9:c2 > UP_LAW_STAFF
+b4:5d:50:72:61:25 > ITDCTEAM
+b4:5d:50:72:86:20 > UP Law Student and Guest
+b4:5d:50:72:86:25 > ITDCTEAM
+00:16:b6:9d:bc:c3 > Wireless@Mainlib
+2e:0e:3d:b5:b6:15 > AndroidAP
+6c:aa:b3:1b:ca:a8 > DILNET-WIFI
+20:aa:4b:98:a1:8e > Prof. Gatmaytan
+24:79:2a:59:27:03 > island-192700
+40:16:7e:a2:7f:d8 > PIIC AC
+00:23:69:38:b1:50 > ERDT Project Office
+78:24:af:7c:03:d8 > PHIL-LiDAR 312-316 (2Ghz)
+c4:34:6b:13:26:b1 > HP-Print-B1-Officejet Pro 8620
+0c:f4:d5:3f:af:38 > WiFi@UPD
+60:31:97:dd:14:84 > SSMMC
+74:cc:39:88:f8:d8 > MoodlearningOnly
+0c:f4:d5:7f:8b:08 > WiFi@UPD
+00:25:9c:bf:5f:6a > linksys_MINING
+e0:8e:3c:22:0a:b3 > bayanDSLWIFI_0AB3
+8c:dc:d4:68:eb:57 > HP-Print-57-Deskjet 4640 series
+0c:f4:d5:3f:8b:08 > DILNET-WIFI
+c4:e9:84:28:c6:1e > PunchPop
+18:d6:c7:23:8c:94 > PHIL-LIDAR TRAINING
+00:13:33:f1:0b:3f > PLDTHOMEDSLMinercon
+a4:2b:b0:d8:5a:38 > PHIL-LIDAR LAN
+c8:d7:19:e7:b6:af > CSC-FIELD-OFFICE
+6a:14:01:33:ed:29 > DIRECT-29-HP M477 LaserJet
+54:3d:37:5d:0e:48 > DILNET
+ec:08:6b:71:fb:20 > ERDT
+68:92:34:6e:1c:e8 > DILNET
+68:92:34:ee:1c:e8 > ENGGNET
+68:92:34:2e:1c:e9 > _WiFi@UPD
+68:92:34:ae:1c:e8 > ENGG-Faculty-Staff-WiFi
+00:1a:ef:2a:97:6c > coastmap-01
+4a:c2:dd:10:d6:3b > EnQ3I-QnJ5bGxlQW5qbw==
+a0:ab:1b:70:76:58 > dlink
+68:92:34:6e:1d:58 > DILNET
+b8:55:10:2b:1a:20 > THREETWOFOUR
+c8:d7:19:e7:ae:99 > wi_me
+68:92:34:6e:25:68 > DILNET
+68:92:34:ae:25:68 > ENGG-Faculty-Staff-WiFi
+68:92:34:ee:25:68 > ENGGNET
+68:92:34:ee:1b:18 > ENGGNET
+68:92:34:2e:25:69 > _WiFi@UPD
+2c:33:7a:0e:7f:1f > HP-Print-1f-Color LaserJet MFP
+68:92:34:6e:1b:18 > DILNET
+54:3d:37:1d:0e:49 > _WiFi@UPD
+54:3d:37:9d:0e:48 > ENGG-Faculty-Staff-WiFi
+54:3d:37:dd:0e:48 > ENGGNET
+68:ef:bd:dc:0c:bc > MH 405
+00:18:25:02:e2:90 > VAP_1
+94:b1:0a:90:29:ad > DD
+e0:10:7f:2d:8d:b8 > _WiFi@UPD
+68:92:34:ae:1d:58 > ENGG-Faculty-Staff-WiFi
+68:92:34:2e:1d:59 > _WiFi@UPD
+68:92:34:ee:1d:58 > ENGGNET
+70:8b:cd:1b:21:e9 > dlaniger
+1c:b9:c4:20:ef:18 > #SmartWifi @UPDiliman
+4c:5e:0c:4d:e0:33 > UPD Ampitheater @FreeWiFi
+68:92:34:6e:28:33 > island-2E2830
+68:92:34:6e:28:38 > DILNET
+68:92:34:ae:28:38 > ENGG-Faculty-Staff-WiFi
+68:92:34:2e:28:39 > _WiFi@UPD
+66:a5:c3:81:43:95 > Bella's 
+1c:b9:c4:23:a0:c8 > #SmartWifi @UPDiliman
+68:92:34:2e:1b:19 > _WiFi@UPD
+68:92:34:ae:1b:18 > ENGG-Faculty-Staff-WiFi
+c8:d7:19:f1:c9:b0 > ENGG_GRAD
+00:23:69:11:a6:4a > NHRC
+00:23:69:c1:21:a7 > HFEL411lab
+74:3e:2b:62:88:a3 > island-2288A0
+d4:68:4d:3e:01:e8 > _WiFi@UPD
+76:4a:a4:c9:4f:55 > Smart Bro1515
+0c:f4:d5:bf:8d:d9 > CAL-FIL
+0c:f4:d5:3f:8d:da > CAL-ADMIN
+0c:f4:d5:3f:8d:d8 > WiFi@UPD
+0c:f4:d5:7f:8d:d8 > DILNET-WIFI
+0c:f4:d5:ff:8d:d8 > CAL-DECL
+0c:f4:d5:bf:8d:d8 > CAL-ARTSTUD
+0c:f4:d5:3f:8d:d9 > CAL-DSCTA
+0c:f4:d5:7f:8d:d9 > CAL-EUROLANG
+0c:f4:d5:ff:8d:d9 > CAL-ICW
+0c:f4:d5:3f:1c:68 > WiFi@UPD
+0c:f4:d5:3f:1c:69 > CAL-DSCTA
+0c:f4:d5:bf:1c:69 > CAL-FIL
+d4:68:4d:3e:01:58 > _WiFi@UPD
+d4:68:4d:7e:01:58 > DILNET-WIFI
+58:70:c6:fb:67:fa > YICarCam_fb67fa
+38:a2:8c:7c:be:b6 > Mitsubishi Wireless TV 365
+d4:68:4d:3e:5e:d8 > _WiFi@UPD
+d4:68:4d:3e:0c:c8 > _WiFi@UPD
+d4:68:4d:7e:5e:d8 > DILNET-WIFI
+d4:68:4d:08:7d:98 > _WiFi@UPD
+d4:68:4d:48:7d:98 > DILNET-WIFI
+d4:68:4d:7e:01:e8 > DILNET-WIFI
+d4:68:4d:07:89:08 > _WiFi@UPD
+88:15:44:a8:fd:1f > Free Public WiFi - Pipol Konek
+d4:68:4d:07:89:18 > _WiFi@UPD
+d4:68:4d:47:89:08 > DILNET-WIFI
+f8:01:13:c6:b4:4b > E5151-b44b
+d4:68:4d:47:89:18 > DILNET-WIFI
+d4:68:4d:07:89:38 > _WiFi@UPD
+d4:68:4d:47:89:38 > DILNET-WIFI
+d4:68:4d:47:87:d8 > DILNET-WIFI
+d4:68:4d:07:8c:68 > _WiFi@UPD
+d4:68:4d:47:8c:68 > DILNET-WIFI
+d4:68:4d:7e:01:78 > DILNET-WIFI
+d4:68:4d:47:8c:d8 > DILNET-WIFI
+d4:68:4d:07:87:d8 > _WiFi@UPD
+d4:68:4d:3e:01:78 > _WiFi@UPD
+d4:68:4d:3d:ed:88 > _WiFi@UPD
+0c:f4:d5:ff:1c:69 > CAL-ICW
+74:3e:2b:01:a3:a8 > _WiFi@UPD
+d4:68:4d:3e:01:b8 > _WiFi@UPD
+d4:68:4d:3d:fb:08 > _WiFi@UPD
+d4:68:4d:7d:fb:08 > DILNET-WIFI
+d4:68:4d:3e:01:68 > _WiFi@UPD
+74:3e:2b:81:a3:a8 > CSSP-POPINST
+74:3e:2b:41:a3:a8 > DILNET-WIFI
+d4:68:4d:7d:ed:88 > DILNET-WIFI
+0c:f4:d5:bf:1c:68 > CAL-ARTSTUD
+0c:f4:d5:ff:1c:68 > CAL-DECL
+0c:f4:d5:7f:1c:68 > DILNET-WIFI
+0c:f4:d5:7f:1c:69 > CAL-EUROLANG
+0c:f4:d5:3f:1c:6a > CAL-ADMIN
+d4:68:4d:7e:01:68 > DILNET-WIFI
+74:3e:2b:01:a4:08 > _WiFi@UPD
+0c:f4:d5:bf:21:f9 > CAL-FIL
+d4:68:4d:7e:0c:c8 > DILNET-WIFI
+f0:b0:52:1c:5b:b8 > _WiFi@UPD
+0c:f4:d5:7f:1c:88 > DILNET-WIFI
+0c:f4:d5:3f:1c:8a > CAL-ADMIN
+0c:f4:d5:3f:1c:88 > WiFi@UPD
+0c:f4:d5:bf:1c:88 > CAL-ARTSTUD
+0c:f4:d5:3f:1c:89 > CAL-DSCTA
+0c:f4:d5:ff:1c:89 > CAL-ICW
+0c:f4:d5:3f:19:08 > WiFi@UPD
+0c:f4:d5:7f:19:08 > DILNET-WIFI
+0c:f4:d5:bf:19:08 > CAL-ARTSTUD
+0c:f4:d5:3f:19:09 > CAL-DSCTA
+0c:f4:d5:bf:19:09 > CAL-FIL
+0c:f4:d5:3f:19:0a > CAL-ADMIN
+74:3e:2b:01:a3:58 > CSSP-ANTHRO
+a0:ab:1b:70:76:42 > dlink
+d4:68:4d:07:8c:d8 > _WiFi@UPD
+d4:68:4d:07:88:b8 > _WiFi@UPD
+d4:68:4d:47:88:b8 > DILNET-WIFI
+74:3e:2b:41:a4:08 > DILNET-WIFI
+74:3e:2b:81:a4:08 > CSSP-POPINST
+f0:b0:52:5c:5b:b8 > DILNET-WIFI
+88:15:44:a8:fe:b7 > Free Public WiFi - Pipol Konek
+e0:10:7f:6d:8d:b8 > DILNET-WIFI
+e0:10:7f:2d:8e:88 > _WiFi@UPD
+e0:10:7f:6d:8e:88 > DILNET-WIFI
+d4:68:4d:3e:01:88 > _WiFi@UPD
+f0:b0:52:5c:5c:28 > DILNET-WIFI
+f0:b0:52:1c:5c:28 > _WiFi@UPD
+d4:68:4d:48:e6:f8 > DILNET-WIFI
+e8:cc:18:f4:f3:1c > dean's office
+88:15:44:a8:ff:17 > Free Public WiFi - Pipol Konek
+d4:68:4d:7e:01:b8 > DILNET-WIFI
+90:94:e4:b1:95:5a > ANTHROLIB
+b0:10:41:24:87:d7 > HP-Print-d7-LaserJet Pro MFP
+c8:d3:a3:1b:b8:b0 > ADASAE
+f0:b0:52:1c:50:88 > _WiFi@UPD
+f0:b0:52:5c:50:88 > DILNET-WIFI
+90:94:e4:34:03:f2 > CSSP Gradprog
+8c:dc:d4:68:db:ab > HP-Print-AB-Deskjet 4640 series
+f0:b0:52:1c:50:78 > _WiFi@UPD
+f0:b0:52:5c:50:78 > DILNET-WIFI
+00:25:9c:f1:cc:c7 > SSPRF
+74:91:1a:23:60:58 > _WiFi@UPD
+74:91:1a:23:5d:e8 > _WiFi@UPD
+74:91:1a:63:5d:e8 > DILNET-WIFI
+0c:f4:d5:3f:9e:e8 > DILNET-WIFI
+0c:f4:d5:7f:9e:e8 > WiFi@UPD
+74:91:1a:63:60:58 > DILNET-WIFI
+0c:f4:d5:7f:a3:98 > WiFi@UPD
+0c:f4:d5:3f:a3:98 > DILNET-WIFI
+f0:b0:52:1c:59:18 > _WiFi@UPD
+f0:b0:52:5c:59:18 > DILNET-WIFI
+0c:f4:d5:3f:ad:d8 > DILNET-WIFI
+e0:10:7f:23:93:e8 > DILNET-WIFI
+e0:10:7f:63:93:e8 > WiFi@UPD
+0c:f4:d5:3f:7d:68 > DILNET-WIFI
+0c:f4:d5:3f:a3:68 > DILNET-WIFI
+0c:f4:d5:7f:a3:68 > WiFi@UPD
+0c:f4:d5:7f:7d:68 > WiFi@UPD
+6c:aa:b3:5b:ca:a8 > WiFi@UPD
+0c:f4:d5:7f:25:98 > WiFi@UPD
+0c:f4:d5:3f:25:98 > DILNET-WIFI
+0c:f4:d5:7f:ad:b8 > WiFi@UPD
+0c:f4:d5:3f:a4:78 > DILNET-WIFI
+0c:f4:d5:7f:a4:78 > WiFi@UPD
+0c:f4:d5:7f:a5:c8 > WiFi@UPD
+0c:f4:d5:3f:a5:c8 > DILNET-WIFI
+0c:f4:d5:7f:af:38 > DILNET-WIFI
+e0:10:7f:1e:be:48 > DILNET-WIFI
+e0:10:7f:5e:be:48 > WiFi@UPD
+0c:f4:d5:3f:19:28 > WiFi@UPD
+0c:f4:d5:3f:c9:48 > WiFi@UPD
+0c:f4:d5:7f:c9:48 > DILNET-WIFI
+00:23:69:11:a9:53 > Bulwagan_AP
+0c:f4:d5:7f:21:08 > DILNET-WIFI
+00:26:18:c6:9d:04 > Department of Reading
+0c:f4:d5:3f:5d:e8 > WiFi@UPD
+0c:f4:d5:7f:5d:e8 > DILNET-WIFI
+7c:e9:d3:b1:a3:88 > HP-Print-88-LaserJet 1102
+00:1b:11:3c:0b:e3 > dlink
+24:79:2a:00:82:a8 > WiFi@UPD
+24:79:2a:40:82:a8 > DILNET-WIFI
+0c:f4:d5:3f:69:68 > DILNET-WIFI
+00:1e:e5:89:28:37 > EDUCLIB WIFI
+b4:5d:50:72:61:20 > UP Law Student and Guest
+b4:5d:50:72:61:21 > UP_LAW_FACULTY
+c0:56:27:1a:39:5f > UPDeducwifi4
+0c:f4:d5:7f:92:28 > DILNET-WIFI
+0c:f4:d5:3f:8f:68 > WiFi@UPD
+c8:be:19:aa:1f:f4 > Science
+0c:f4:d5:3f:7a:c8 > WiFi@UPD
+0c:f4:d5:7f:7a:c8 > DILNET-WIFI
+c8:d7:19:f1:d7:48 > UPIS COMPLAB1
+1c:b7:2c:d8:1b:30 >         
+aa:a6:68:78:20:9a > doridot
+0c:f4:d5:7f:1d:78 > DILNET-WIFI
+0c:f4:d5:3f:92:28 > WiFi@UPD
+0c:f4:d5:3f:19:d8 > WiFi@UPD
+0c:f4:d5:7f:8f:68 > DILNET-WIFI
+0c:f4:d5:7f:19:d8 > DILNET-WIFI
+24:79:2a:00:88:c8 > WiFi@UPD
+a8:a7:95:09:9d:07 > DIRECT-USDESKTOP-O48TIIRmsBE
+c8:d7:19:e7:af:7a > ORDP-GUIDANCE
+c8:d7:19:e7:ae:53 > UPIS K-2 Faculty
+e4:6f:13:5d:69:36 > UP Town Center
+1c:af:f7:87:4c:5c > dlink
+24:a4:3c:44:41:e0 > CHE_GUSALI
+00:1e:58:0e:68:32 > HEEDNet
+c8:d7:19:e7:ac:96 >           
+00:21:29:7b:a0:df > CHE_FLCD
+00:b0:c0:02:75:b8 > Vikings
+14:2d:27:37:8c:38 > HP-Print-38-LaserJet 1102
+00:1a:70:5b:d9:64 > chelibrary
+74:91:1a:23:5f:e8 > _WiFi@UPD
+74:91:1a:63:5f:e8 > DILNET-WIFI
+e4:6f:13:61:13:c6 > UPIB Faculty WiFi 1
+68:7f:74:a1:5e:7a > Mammalian Cell Culture Lab
+26:16:f9:7d:f6:81 > AOTSU
+b0:c5:54:d8:70:8e > Medical Microbiology Lab
+76:4a:a4:db:43:52 > rgr office
+00:b0:c1:04:e6:a6 > PGC Admin
+f8:1a:67:b3:26:0e > 
+1c:b7:2c:7d:7a:e8 > PGC-CFB(2.4GHz)
+e4:7d:eb:03:6e:0b > P01I-6E0B
+30:e1:71:9c:06:03 > DIRECT-02-HP DeskJet 3830 series
+3c:a8:2a:d9:d4:82 > HP-Print-82-Officejet 7610
+84:c9:b2:5e:de:90 > PGC-DSCF
+dc:09:4c:2f:d2:c9 > HUAWEI-E5330-D2C9
+00:1c:f0:3a:a2:09 > Plant WIFI
+c0:56:27:aa:44:31 > 3F Central Lab 2.4
+e4:6f:13:61:17:e6 > Lecture/Laboratory (Roving)
+aa:a6:68:21:ae:d4 > lesspacito
+30:b5:c2:fa:a1:10 > ArcherC9-2Ghz
+20:aa:4b:67:19:b5 > 3F NIMBB WiFi 2.4
+c0:a0:bb:12:8a:a8 > PGC-3F
+48:f8:b3:d9:10:1f > IB Room 272
+00:16:01:d1:ec:30 > SSP-Faculty
+00:13:10:41:98:92 > 2F NIMBB Instructors
+e8:50:8b:87:d5:5b > abcdefgh
+d4:c9:ef:5c:1f:7a > HP-Print-7A-Officejet 7610
+00:16:01:ed:2a:42 > IB Administrative Office II
+74:d0:2b:57:19:4e > CS-ADFARM
+00:1c:f0:3a:b4:7b > 
+20:aa:4b:67:19:6d > GF NIMBB WiFi_2.4
+78:52:1a:c7:00:01 > OffTheBlock
+80:2a:a8:d4:c8:2b > csrcLAB2
+fc:8b:97:35:81:1b > PLDTMyDSL
+20:aa:4b:67:1a:0f > NIMBB Admin WiFi
+c0:56:27:9c:dc:d7 > UP-TTBDO
+ec:8a:c7:fb:e0:a4 > piasvetoxy_2.4G
+b0:c5:54:d8:70:82 > Coral Reefs Museum
+fc:b4:e6:82:45:a6 > SMB3507
+6c:aa:b3:18:f2:68 > DILNET-WIFI
+6c:aa:b3:58:f2:68 > WiFi@UPD
+0c:f4:d5:3f:8c:c8 > DILNET-WIFI
+00:16:01:5a:87:2f > csrclab-1
+00:16:01:5a:86:d5 > CSRC-Maclab
+34:ba:9a:56:25:7a > Smart_Bro_56257A
+00:24:a8:a7:91:83 > CSRC-00
+14:1f:78:97:46:b4 > AndroidME
+fc:75:16:e8:36:f2 > College of Science - SSP
+14:91:82:60:e5:d5 > College
+14:91:82:60:e5:45 > College of Science - ADRE
+b0:c5:54:d8:70:84 > Freshwater Lab
+00:16:01:b9:a7:8a > College of Science - CEB
+e0:cb:4e:56:a6:45 > COMECO_252
+80:13:82:17:fc:f2 > Savemore Free Wifi
+24:79:2a:1b:41:08 > WiFi@UPD
+30:b5:c2:84:25:ce > spelunking
+20:4e:7f:17:84:a2 >        
+2c:44:fd:c8:7a:71 > HP-Print-71-Deskjet 2540 series
+00:24:a8:aa:37:e4 > NSC-0195
+e4:8d:8c:48:a8:b6 > Room-210
+00:24:a8:aa:37:e1 > CSLib_wifi
+00:24:a8:aa:37:e0 > CSRCwifi
+00:24:a8:aa:37:e5 > 
+6c:aa:b3:1b:47:28 > UPEEEI
+6c:aa:b3:9b:47:28 > _WiFi@UPD
+6c:aa:b3:db:47:28 > Bayanihan@EEEI
+6c:aa:b3:1b:47:29 > DILNET-WIFI
+6c:aa:b3:5b:47:28 > UPEEEI-Guest
+00:02:6f:45:26:27 > upeeehome3
+78:8a:20:54:7f:1e > nscWIFI
+e4:6f:13:61:11:2e > CORElab
+00:24:a8:aa:37:f0 > CSRCwifi
+00:24:a8:aa:37:f1 > CSLib_wifi
+04:4f:aa:0c:4c:58 > UPEEEI-Guest
+c0:56:27:4d:b0:03 > AN33M3
+04:4f:aa:0c:44:78 > UPEEEI
+04:4f:aa:4c:4c:58 > _WiFi@UPD
+04:4f:aa:8c:4c:58 > Bayanihan@EEEI
+04:4f:aa:cc:4c:58 > DILNET-WIFI
+04:4f:aa:0c:44:79 > DILNET-WIFI
+84:16:f9:3d:5c:c4 > IRC Wireless 2
+04:4f:aa:0c:4c:88 > UPEEEI
+04:4f:aa:4c:4c:88 > UPEEEI-Guest
+e0:3f:49:8b:24:38 > MKBAs
+90:94:e4:a6:3b:6c > DSP Graduates Room
+c8:60:00:ac:6e:04 > Room 312
+04:4f:aa:0c:4c:48 > UPEEEI
+04:4f:aa:4c:4c:48 > UPEEEI-Guest
+04:4f:aa:8c:4c:48 > CNL
+04:4f:aa:cc:4c:48 > UCL
+04:4f:aa:0c:4c:49 > _WiFi@UPD
+04:4f:aa:8c:4c:49 > DILNET-WIFI
+04:4f:aa:8c:ac:78 > _WiFi@UPD
+04:4f:aa:0c:ac:78 > UPEEEI
+04:4f:aa:4c:ac:78 > UPEEEI-Guest
+04:4f:aa:cc:ac:78 > Bayanihan@EEEI
+2c:59:e5:c4:21:03 > HP-Print-03-Deskjet 3510 series
+04:4f:aa:0c:b0:28 > UPEEEI
+00:90:4c:5f:00:2a > Chromecast
+00:25:c4:3c:e0:48 > UPEEEI
+00:25:c4:bc:e0:48 > _WiFi@UPD
+00:25:c4:fc:e0:48 > Bayanihan@EEEI
+00:25:c4:3c:e0:49 > DILNET-WIFI
+58:6d:8f:7e:cf:36 > EEE access point 13
+a0:2b:b8:6d:ab:0d > HP-Print-0D-Officejet Pro 8620
+00:25:c4:7c:e0:48 > UPEEEI-Guest
+2c:dd:95:f4:bd:76 > RTU_ee198
+54:3d:37:1d:10:d8 > DILNET
+54:3d:37:9d:10:d8 > ENGG-Faculty-Staff-WiFi
+54:3d:37:dd:10:d8 > ENGGNET
+ec:1a:59:27:da:ed > HannaPH
+54:3d:37:5d:10:d9 > _WiFi@UPD
+54:3d:37:1d:10:d9 > InternalWS
+00:24:a8:aa:37:f4 > NSC-0195
+00:24:a8:aa:37:f5 > 
+60:31:97:92:b9:dc > PLDTMyDSLBizB9DB0
+54:3d:37:5d:0e:08 > DILNET
+2c:e6:cc:9a:6a:b8 > dcs vip wifi
+2c:e6:cc:1a:6a:b9 > ndsgwifi
+00:1e:52:7a:db:69 > WSGWifi
+2c:e6:cc:5a:6a:b9 > dcs faculty 5GHz
+54:3d:37:5d:0e:09 > InternalWS
+2c:e6:cc:da:6a:ba > dcs network
+2c:e6:cc:9a:6a:b9 > wsgwifi
+54:3d:37:9d:0e:09 > _WiFi@UPD
+54:3d:37:dd:0e:08 > ENGG-Faculty-Staff-WiFi
+54:3d:37:1d:0e:09 > ENGGNET
+2c:e6:cc:da:6a:b8 > s3wifi
+00:24:a8:a7:91:71 > CSLib_wifi
+2c:e6:cc:1a:5f:ca > cvmigwifi
+2c:e6:cc:9a:5f:c9 > wsgwifi
+2c:e6:cc:9a:5f:ca > dcs infrastructure
+2c:e6:cc:da:5f:ca > dcs network
+2c:e6:cc:1a:5f:c8 > dcs faculty
+2c:e6:cc:5a:5f:c8 > sclwifi
+2c:e6:cc:9a:5f:c8 > dcs vip wifi
+2c:e6:cc:da:5f:c8 > s3wifi
+2c:e6:cc:1a:5f:c9 > ndsgwifi
+2c:e6:cc:5a:5f:c9 > dcs faculty 5GHz
+2c:e6:cc:da:5f:c9 > bayanihan
+2c:e6:cc:5a:5f:ca > Bayanihan@DCS
+2c:e6:cc:18:fe:89 > ndsgwifi
+2c:e6:cc:d8:fe:89 > bayanihan
+2c:e6:cc:18:fe:8a > cvmigwifi
+2c:e6:cc:98:fe:89 > wsgwifi
+2c:e6:cc:58:fe:88 > sclwifi
+2c:e6:cc:98:fe:88 > dcs vip wifi
+2c:e6:cc:d8:fe:88 > s3wifi
+2c:e6:cc:58:fe:89 > dcs faculty 5GHz
+2c:e6:cc:18:fe:88 > dcs faculty
+2c:e6:cc:d8:fe:8a > dcs network
+54:3d:37:1d:10:48 > DILNET
+2c:e6:cc:1a:6a:3a > cvmigwifi
+2c:e6:cc:da:6a:3a > dcs network
+2c:e6:cc:1a:6a:38 > dcs faculty
+2c:e6:cc:9a:6a:38 > dcs vip wifi
+2c:e6:cc:9a:6a:3a > dcs infrastructure
+2c:e6:cc:da:6a:38 > s3wifi
+2c:e6:cc:1a:6a:39 > ndsgwifi
+2c:e6:cc:5a:6a:39 > dcs faculty 5GHz
+2c:e6:cc:9a:6a:39 > wsgwifi
+2c:e6:cc:da:6a:39 > bayanihan
+2c:e6:cc:5a:6a:3a > Bayanihan@DCS
+00:13:33:db:8e:71 >                
+2c:e6:cc:58:87:69 > dcs faculty 5GHz
+2c:e6:cc:98:87:69 > wsgwifi
+2c:e6:cc:d8:87:69 > bayanihan
+2c:e6:cc:18:87:6a > cvmigwifi
+2c:e6:cc:58:87:6a > Bayanihan@DCS
+2c:e6:cc:98:87:6a > dcs infrastructure
+2c:e6:cc:d8:87:6a > dcs network
+2c:e6:cc:5a:6a:38 > sclwifi
+94:a7:b7:3c:ef:cd > bayanDSLWIFI_EFCD
+2c:e6:cc:98:88:69 > wsgwifi
+00:24:01:df:a5:d3 > NIGSPUBWIFI C
+2c:e6:cc:1a:6a:b8 > dcs faculty
+2c:e6:cc:1a:6a:ba > cvmigwifi
+2c:e6:cc:da:6a:b9 > bayanihan
+58:6d:8f:9c:23:65 > NIGS Admin
+c8:d7:19:2b:09:55 > IESM Admin wifi
+74:df:bf:29:5e:c0 > DIRECT-2ODESKTOP-F8MQJIUmsaA
+1c:7e:e5:43:37:13 > 217 Faculty Room
+3c:1e:04:0b:98:da > NIGSLAYB
+3c:1e:04:e7:07:d9 > Corva09-02
+58:ef:68:0c:f4:08 > IESM -  Synoptics Lab
+2c:e6:cc:58:fe:8a > Bayanihan@DCS
+2c:e6:cc:98:fe:8a > dcs infrastructure
+24:79:2a:1b:64:a8 > DILNET-WIFI
+                
