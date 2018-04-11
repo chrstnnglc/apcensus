@@ -111,11 +111,11 @@ print len(ap_list2)
 #we now combine information on both lists to complete our data for the ap
 for ap in ap_list:
     for ap2 in ap_list2:
-        if ap.mac == ap2.mac:
-            ap.gps_time = ap2.gps_time
-            ap.time_capt = ap2.time_capt
-            ap.lat = ap2.lat
-            ap.lng = ap2.lng
+        if ap2.mac == ap.mac:
+            ap2.gps_time = ap.gps_time
+            ap2.time_capt = ap.time_capt
+            ap2.lat = ap.lat
+            ap2.lng = ap.lng
 
 #if coordinates are 0, we remove that ap in our list
 #..........
