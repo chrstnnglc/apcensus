@@ -57,6 +57,10 @@ def callf(p):
 			
 			mac = p.addr2
 			ssid = p.info
+			if "\00" in ssid or ssid == "":
+                        	ssid = "xNonex"
+                        else:
+                        	ssid = ssid.replace("'", "")
 			enc = get_encryption(p)
 			channel = ord(p[Dot11Elt:3].info[0])
 			manuf = oui_lookup(mac[0:8])
@@ -64,12 +68,6 @@ def callf(p):
 			
 			new_ap = AP("none","none",mac,ssid,enc,rssi,channel,manuf,"none","none","none")
 			ap_list.append(new_ap)
-		else:
-                        rssi = -(256-ord(p.notdecoded[-2:-1]))
-                        for item in ap_list:
-                                if item.bssid == p.addr2:
-                                        if item.rssi < rssi:
-                                                item.rssi = rssi
 
 #----------------------------------------------------------------------------------------------------------------------------------
 sniff(prn = callf, offline="trace.pcap")
@@ -87,43 +85,51 @@ for line in bf_file:
     time_capt = parsed[3] + parsed[4]
     mac = parsed[6]
     rssi = parsed[8]
+    ch = parsed[10]
     loc = parsed[11]
     loc = loc[1:]
     loc = loc.split(",")
     lat = loc[0]
     lng = loc[1]
-    if mac not in unique_aps:
-        unique_aps.append(mac)
-        new_ap = AP(gps_time,time_capt,mac,"none","none",rssi,"none","none","none",lat,lng)
-	ap_list2.append(new_ap)
-    else:
-        for item in ap_list2:
-            if item.mac == mac:
-                if int(item.rssi) < int(rssi):
-                    item.gps_time = gps_time
-                    item.time_capt = time_capt
-                    item.rssi = rssi
-		    item.lat = lat
-		    item.lng = lng
+    if lat != "0.000000" and lng != "0.000000":	#dont consider readings with no gps coordinates
+	    if mac not in unique_aps:
+		unique_aps.append(mac)
+		new_ap = AP(gps_time,time_capt,mac,"none","none",rssi,ch,"none","none",lat,lng)
+		ap_list2.append(new_ap)
+	    else:
+		for item in ap_list2:
+		    if item.mac == mac:
+		        if int(item.rssi) < int(rssi):
+		            item.gps_time = gps_time
+		            item.time_capt = time_capt
+		            item.rssi = rssi
+			    item.lat = lat
+			    item.lng = lng
 
-print len(ap_list)
-print len(ap_list2)
+
 #we now combine information on both lists to complete our data for the ap
 for ap in ap_list:
     for ap2 in ap_list2:
         if ap2.mac == ap.mac:
-            ap2.gps_time = ap.gps_time
-            ap2.time_capt = ap.time_capt
-            ap2.lat = ap.lat
-            ap2.lng = ap.lng
+            ap2.ssid = ap.ssid
+            ap2.security = ap.security 
+            ap2.manuf = ap.manuf
 
-#if coordinates are 0, we remove that ap in our list
-#..........
+
 #make csv file
-'''with open('trace.csv','wb') as csvfile:
+with open('ap_data.csv','wb') as csvfile:
 	write_file = csv.writer(csvfile, delimiter = ',')
-	write_file.writerow(["GPS Time","Time,""MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
-	for item in ap_list:
-        
-	print "Analyzing finished"
-'''
+	write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
+	for item in ap_list2:
+        	write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])	
+
+
+
+#make txt file
+res_file = open("ap_data.txt",'w')
+for item in ap_list2:
+	text = 	str(item.gps_time) +"|"+ str(item.time_capt) +"|"+ str(item.mac) +"|"+ str(item.ssid) +"|"+ str(item.security) +"|"+ str(item.rssi) +"|"+ str(item.channel) +"|"+ str(item.manuf) +"|"+ str(item.ap_type) +"|"+ str(item.lat) +"|"+ str(item.lng) + "\n"
+	res_file.write(text)
+bf_file.close()
+res_file.close()
+print "Analyzing finished"
