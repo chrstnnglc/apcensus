@@ -2,6 +2,7 @@
 import csv
 import os
 import pytz
+import datetime
 from scapy.all import *
 from oui_dict import *
 
@@ -69,6 +70,19 @@ def callf(p):
 			new_ap = AP("none","none",mac,ssid,enc,rssi,channel,manuf,"none","none","none")
 			ap_list.append(new_ap)
 
+def rpi_time_convert(time_in):
+        formatto = "%Y-%m-%d %H:%M:%S.%f"
+        formatfrom = "%m/%d/%Y %H:%M:%S.%f"
+        time_out = datetime.datetime.strptime(time_in,formatfrom)
+        time_out = time_out.strftime(formatto)
+        return time_out
+
+def gps_time_convert(time_in):
+        formatto = "%Y-%m-%d %H:%M:%S"
+        formatfrom = "%m/%d/%Y %H:%M:%S"
+        time_out = datetime.datetime.strptime(time_in,formatfrom)
+        time_out = time_out.strftime(formatto)
+        return time_out
 #----------------------------------------------------------------------------------------------------------------------------------
 sniff(prn = callf, offline="trace.pcap")
 
@@ -81,8 +95,8 @@ for line in bf_file:
     for i in range(0,len(parsed)):
         parsed[i] = parsed[i].strip()
     
-    gps_time = parsed[0] + parsed[1]
-    time_capt = parsed[3] + parsed[4]
+    gps_time = gps_time_convert(parsed[0] + " " + parsed[1])
+    time_capt = rpi_time_convert(parsed[3] + " " + parsed[4])
     mac = parsed[6]
     rssi = parsed[8]
     ch = parsed[10]
