@@ -2,7 +2,7 @@
 from oui_dict import *
 import csv
 
-unique_bssid = []
+ap_list = []
 #these lists will contain the aps where they have a matching ssid
 pldt = []
 huawei = []
@@ -13,7 +13,6 @@ bayandsl = []
 android = []
 aztech = []
 zte = []
-blank = []
 netgear = []
 iphone = []
 sky = []
@@ -22,31 +21,42 @@ fiberhome = []
 homebro = []
 unidentified = []
 
+#these lists will contain the aps where they have the same type
+fib_list = []
+bb_list = []
+mbb_list = []
+hs_list = []
+phone_list = []
+nap_list = []
+uni_list = []
+
 #these list will contain the classification of internet
-fiber = ["Fiberhom","Cisco-Li"]
-broadband = ["D-linkIn","Baudtec","FidaInte","Shenzhen","TaicangT","Tp-LinkT","ZyxelCom","Shenzhen","AztechEl","Technico","Netgear","RuckusWi","KasdaNet","Routerbo","D-Link","ZioncomE"]
+fiber = ["Fiberhom"]
+broadband = []
 mobile_bb = ["GreenPac"]
-hotspot = ["Asiatelc","TctMobil","IeeeRegi"]
-phone = ["SamsungE","Apple","VivoMobi","Nokia","SianoMob","RapidMob"]
-none_ap = ["HewlettP","Roku","Mxchip"]
-unid_manuf = [] #this will contain the list of manufacturers wherein we have no guess yet
-fiber_count = 0
-bb_count = 0
-mbb_count = 0
-hs_count = 0
-phone_count = 0
-nap_count = 0
+hotspot = ["TctMobil"]
+phone = ["SamsungE","Apple","VivoMobi","Nokia","SianoMob","RapidMob","Longchee","Microsof","SenaoInt","Guangdon","BlackBer"]
+none_ap = ["HewlettP","Roku","Mxchip","Micro-St","Bose","Guangzho","Raspberr"]
+
+#this will contain the list of manufacturers wherein we have no guess yet
+unid_manuf = []
 
 class AP:
-	def __init__(self, bssid=None, ssid=None, channel=None,enc=None,manunf=None,ap_type=None):
-		self.bssid = bssid
+	def __init__(self, gps_time=None, time_capt=None, mac=None, ssid=None, sec=None, rssi=None, ch=None, manuf=None, ap_type=None,lat=None, lng=None,):
+                self.gps_time = gps_time
+                self.time_capt = time_capt
+		self.mac = mac
 		self.ssid = ssid
-		self.channel = channel
-		self.enc = enc
+		self.security = sec
+		self.rssi = rssi
+		self.channel = ch
 		self.manuf = manuf
 		self.ap_type = ap_type
+		self.lat = lat
+		self.lng = lng
 
-#check each ssid if it falls under the list
+#check AP's ssid if it falls under the list
+#these are the default SSIDs that we know so far
 def ssid_check(ssid):
         ssid_lower_case = ssid.lower()
         if "pldt" in ssid_lower_case:
@@ -79,209 +89,120 @@ def ssid_check(ssid):
                 fiberhome.append(new_ap)
         elif "homebro" in ssid_lower_case:
                 homebro.append(new_ap)
-        elif "" == ssid_lower_case:
-                blank.append(new_ap)
         else:
                 unidentified.append(new_ap)
 
-def type_check(manuf,ssid):
+def type_check(manuf,ssid,mac):
 		if manuf in fiber:
-			global fiber_count
-			fiber_count += 1
 			return "Fiber"
 		elif manuf in broadband:
-			global bb_count
-			bb_count += 1
 			return "Broadband"
 		elif manuf in mobile_bb:
-			global mbb_count
-			mbb_count += 1
 			return "Mobile broadband"
 		elif manuf in hotspot:
-			global hs_count
-			hs_count += 1
 			return "Hotspot"
 		elif manuf in phone:
-			global phone_count
-			phone_count += 1
 			return "Phone"
 		elif manuf in none_ap:
-			global nap_count
-			nap_count += 1
 			return "Not an AP"
-		else:
-			#check special cases (check ssid special cases first before checking manufacturers cases)
-			if "EVOHOTSPOT" in ssid:
-				global hs_count
-				hs_count += 1
+                
+		else:   #check special cases
+                        if ("EVOHOTSPOT" in ssid) or ("EVO WIFI HOTSPOT" in ssid) or ("EVOLUTION PREPAID HOT SPOT" in ssid):
 				return "Hotspot"
 			
+                        #This string is included in the default SSID of a ZTE hotspot
 			if "ZTE-MF65M" in ssid:
-				global hs_count
-				hs_count += 1
 				return "Hotspot"
 			
+                        if ("PLDTHOMEDSL" in ssid) or ("PLDTMyDSL" in ssid):
+                                return "Broadband"
+
+			if "ZTEH108N" in ssid:
+                                return "Broadband"
+
+                        if "SKYbroadband" in ssid:
+                                return "Broadband"
+
+                        if "NetgearORBI" in ssid:
+                                return "Broadband" 
+
+                        if "HomeBro_ULTERA" in ssid:
+                                return "Mobile broadband"
+
+			if "Globe_LTE MIFI" in ssid:
+                                return "Hotspot" 
 			
-			#There are identified cases where Zte is an broadband or an LTE Wifi that's why we take it as a special case
-			if manuf == "Zte":
-				global bb_count
-				bb_count += 1
-				return "Broadband"
-					
-			if manuf == "HuaweiTe":	
-				if "HUAWEI-E5330" in ssid:
-					global hs_count
-					hs_count += 1
-					return "Hotspot"
-				else:
-					global bb_count
-					bb_count += 1
-					return "Broadband"
-					
+			if ("HUAWEI-E5330" in ssid) or ("HUAWEI-E5372" in ssid) or ("HUAWEI-E5220" in ssid):
+				return "Hotspot"
+
+			if ("HUAWEI Y541" in ssid) or ("HUAWEI GR5" in ssid) or ("HUAWEI Y7" in ssid) or ("HUAWEI P9" in ssid) or ("HUAWEI P10" in ssid):
+                                return "Phone"
+                        
+                        if "HUAWEI-E5172" in ssid:
+                                return "Mobile broadband"
+
+			if ("AndroidAP" in ssid) or ("AndroidHotspot" in ssid):
+                                return "Phone"
+
+                        if "iPhone" in ssid:
+                                return "Phone"
+
+                        if "YICarCam" in ssid:
+                                return "Not an AP"
+                        
+                        if "Mitsubishi Wireless TV" in ssid:
+                                return "Not an AP"
+			
 			#if not in special cases, unidentified
 			else:
-				if manuf not in unid_manuf:
-					unid_manuf.append(manuf)
+                                return "Unidentified"
 
-#read trace file
-i = 0			
-with open('area2.csv','rb') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-	for line in reader:
-		if i != 0:		##ignore first line
-
-			#get all data
-			bssid = line[0]
-			ssid = line[1]
-			enc = line[2]
-			channel = line[3]
-			
-			#this will be used for oui lookup
-                        mac = bssid.upper()
-                        mac = mac[0:8]
-                        #check the vendor of the ap
-                        manuf = oui_lookup(mac)
-						#check the type of ap
-                        ap_type = type_check(manuf,ssid)
-                        #only check unique aps
-			if bssid not in unique_bssid:
-                            new_ap = AP(bssid,ssid,channel,enc,manuf,ap_type)
-                            unique_bssid.append(bssid)
-                            #check each ssid if it falls under the list
-                            ssid_check(ssid)
-			
-		i += 1
-
+def group_type(ap_type):
+        if ap_type == "Fiber":
+                fib_list.append(new_ap)
+        elif ap_type == "Broadband":
+                bb_list.append(new_ap)
+        elif ap_type == "Mobile broadband":
+                mbb_list.append(new_ap)
+        elif ap_type == "Hotspot":
+                hs_list.append(new_ap)
+        elif ap_type == "Phone":
+                phone_list.append(new_ap)
+        elif ap_type == "Not an AP":
+                nap_list.append(new_ap)
+        elif ap_type == "Unidentified":
+                uni_list.append(new_ap)
+                
 i = 0
-with open('hs_trace.csv','rb') as csvfile:
+with open('master_list.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for line in reader:
-		if i != 0:		##ignore first line
+                if i != 0:		##ignore first line
 
 			#get all data
-			bssid = line[0]
-			ssid = line[1]
-			enc = line[2]
-			channel = line[3]
-			
-			#this will be used for oui lookup
-                        mac = bssid.upper()
-                        mac = mac[0:8]
-                        #check the vendor of the ap
-                        manuf = oui_lookup(mac)
+                        gps_time = line[0]
+                        time_capt = line[1]
+                        mac = line[2]
+                        ssid = line[3]
+                        sec = line[4]
+                        rssi = line[5]
+                        ch = line[6]
+                        manuf = line[7]
+                        ap_type = line[8]
+                        lat = line[9]
+                        lng = line[10]
                         #check the type of ap
-                        ap_type = type_check(manuf,ssid)
-                        #only check unique aps
-			if bssid not in unique_bssid:
-                            new_ap = AP(bssid,ssid,channel,enc,manuf,ap_type)
-                            unique_bssid.append(bssid)
-                            #check each ssid if it falls under the list
-                            ssid_check(ssid)
-			
-		i += 1
-i = 0
-with open('tv_trace.csv','rb') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-	for line in reader:
-		if i != 0:		##ignore first line
-
-			#get all data
-			bssid = line[0]
-			ssid = line[1]
-			enc = line[2]
-			channel = line[3]
-			
-			#this will be used for oui lookup
-                        mac = bssid.upper()
-                        mac = mac[0:8]
-                        #check the vendor of the ap
-                        manuf = oui_lookup(mac)
-                        #check the type of ap
-                        ap_type = type_check(manuf,ssid)
-                        #only check unique aps
-			if bssid not in unique_bssid:
-                            new_ap = AP(bssid,ssid,channel,enc,manuf,ap_type)
-                            unique_bssid.append(bssid)
-                            #check each ssid if it falls under the list
-                            ssid_check(ssid)
-			
-		i += 1
-i = 0
-with open('log-76.csv','rb') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-	for line in reader:
-		if i != 0:		##ignore first line
-
-			#get all data
-			bssid = line[0]
-			ssid = line[1]
-			enc = line[2]
-			channel = line[3]
-			
-			#this will be used for oui lookup
-                        mac = bssid.upper()
-                        mac = mac[0:8]
-                        #check the vendor of the ap
-                        manuf = oui_lookup(mac)
-                        #check the type of ap
-                        ap_type = type_check(manuf,ssid)
-                        #only check unique aps
-			if bssid not in unique_bssid:
-                            new_ap = AP(bssid,ssid,channel,enc,manuf,ap_type)
-                            unique_bssid.append(bssid)
-                            #check each ssid if it falls under the list
-                            ssid_check(ssid)
-			
-		i += 1
-i = 0
-with open('trace_01312018.csv','rb') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-	for line in reader:
-		if i != 0:		##ignore first line
-
-			#get all data
-			bssid = line[0]
-			ssid = line[1]
-			enc = line[2]
-			channel = line[3]
-			
-			#this will be used for oui lookup
-                        mac = bssid.upper()
-                        mac = mac[0:8]
-                        #check the vendor of the ap
-                        manuf = oui_lookup(mac)
-                        #check the type of ap
-                        ap_type = type_check(manuf,ssid)
-                        #only check unique aps
-			if bssid not in unique_bssid:
-                            new_ap = AP(bssid,ssid,channel,enc,manuf,ap_type)
-                            unique_bssid.append(bssid)
-                            #check each ssid if it falls under the list
-                            ssid_check(ssid)
+                        ap_type = type_check(manuf,ssid,mac)
+                        new_ap = AP(gps_time,time_capt,mac,ssid,sec,rssi,ch,manuf,ap_type,lat,lng)
+                        ap_list.append(new_ap)
+                        #check each ssid if it falls under the list
+                        ssid_check(ssid)
+                        #group ap according to type
+                        group_type(ap_type)
 			
 		i += 1
 
-print "Total APS: " + str(len(unique_bssid))
+print "Total APS: " + str(len(ap_list))
 print "PLDT: " + str(len(pldt))
 print "HUAWEI: " + str(len(huawei))
 print "GLOBE: " + str(len(globe))
@@ -297,121 +218,173 @@ print "SKYBROADBAND: " + str(len(sky))
 print "EVOHOTSPOT: " + str(len(evo))
 print "FIBERHOME: " + str(len(fiberhome))
 print "HOMEBRO: " + str(len(homebro))
-print "NO NAME: " + str(len(blank))
 print "UNIDENTIFIED: " + str(len(unidentified))
 
-print "TYPES\n"
-print "FIBER: " + str(fiber_count)
-print "BROADBAND: " + str(bb_count)
-print "MOBILE BROADBAND: " + str(mbb_count)
-print "HOTSPOT: " + str(hs_count)
-print "PHONE: " + str(phone_count)
-print "UNIDENTIFIED: " + str(len(unid_manuf))
-for item in unid_manuf:
-	print item
+print "\nTYPES"
+print "FIBER: " + str(len(fib_list))
+print "BROADBAND: " + str(len(bb_list))
+print "MOBILE BROADBAND: " + str(len(mbb_list))
+print "HOTSPOT: " + str(len(hs_list))
+print "PHONE: " + str(len(phone_list))
+print "NOT AP: " + str(len(nap_list))
+print "UNIDENTIFIED: " + str(len(uni_list))
 
-
-with open('group_ssid.csv','wb') as csvfile:
+#make a csv file wherein APs are grouped up according to brand(default ssid)
+with open('brand_mlist.csv','wb') as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
 
-    write_file.writerow(["Total APs",str(len(unique_bssid))])
+    write_file.writerow(["Total APs",str(len(ap_list))])
     write_file.writerow(["PLDT",str(len(pldt))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in pldt:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
     write_file.writerow([""])
     write_file.writerow(["Huawei",str(len(huawei))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in huawei:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
     write_file.writerow([""])   
     write_file.writerow(["Globe",str(len(globe))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in globe:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
     write_file.writerow([""])    
     write_file.writerow(["Smart",str(len(smart))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in smart:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
     write_file.writerow([""])    
     write_file.writerow(["TP-Link",str(len(tplink))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in tplink:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
     write_file.writerow([""])    
     write_file.writerow(["BayanDSL",str(len(bayandsl))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in bayandsl:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
     write_file.writerow([""])    
     write_file.writerow(["Android",str(len(android))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in android:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
     write_file.writerow([""])    
     write_file.writerow(["Aztech",str(len(aztech))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in aztech:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
     write_file.writerow([""])    
     write_file.writerow(["ZTE",str(len(zte))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in zte:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
     write_file.writerow([""])    
     write_file.writerow(["Netgear",str(len(netgear))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in netgear:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
     write_file.writerow([""])    
     write_file.writerow(["iPhone",str(len(iphone))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in iphone:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
     write_file.writerow([""])    
     write_file.writerow(["Sky Broadband",str(len(sky))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in sky:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
     write_file.writerow([""])    
     write_file.writerow(["EVO HotSpot",str(len(evo))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in evo:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
     write_file.writerow([""])    
     write_file.writerow(["Fiber Home",str(len(fiberhome))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in fiberhome:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
     write_file.writerow([""])    
     write_file.writerow(["HomeBro",str(len(homebro))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in homebro:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
-
-    write_file.writerow([""])    
-    write_file.writerow(["No Name",str(len(blank))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
-    for item in blank:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
     write_file.writerow([""])    
     write_file.writerow(["Unidentified",str(len(unidentified))])
-    write_file.writerow(["BSSID","SSID","Manufacturer","Type","Encryption","Channel"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in unidentified:
-        write_file.writerow([str(item.bssid),str(item.ssid),str(item.manuf),str(item.ap_type),str(item.enc),str(item.channel)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
+
+#make a csv file wherein APs are grouped up according to type
+with open('type_mlist.csv','wb') as csvfile:
+        write_file = csv.writer(csvfile, delimiter = ',')
+        
+        write_file.writerow(["Total APs",str(len(ap_list))])
+        write_file.writerow(["Fiber",str(len(fib_list))])
+        write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
+        for item in fib_list:
+                write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
+
+        write_file.writerow([""])
+        write_file.writerow(["Broadband",str(len(bb_list))])
+        write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
+        for item in bb_list:
+                write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
+
+        write_file.writerow([""])
+        write_file.writerow(["Mobile broadband",str(len(mbb_list))])
+        write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
+        for item in mbb_list:
+                write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
+
+        write_file.writerow([""])
+        write_file.writerow(["Hotspot",str(len(hs_list))])
+        write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
+        for item in hs_list:
+                write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
+
+        write_file.writerow([""])
+        write_file.writerow(["Phone",str(len(phone_list))])
+        write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
+        for item in phone_list:
+                write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
+
+        write_file.writerow([""])
+        write_file.writerow(["Non AP",str(len(nap_list))])
+        write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
+        for item in nap_list:
+                write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
+
+        write_file.writerow([""])
+        write_file.writerow(["Unidentified",str(len(uni_list))])
+        write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
+        for item in uni_list:
+                write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
+
+#make a csv file of master list
+with open('master_list.csv','wb') as csvfile:
+    write_file = csv.writer(csvfile, delimiter = ',')
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
+    for item in ap_list:
+            write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])	
+
+#make a text file of master list
+res_file = open("master_list.txt",'w')
+for item in ap_list:
+	text = 	str(item.gps_time) +"|"+ str(item.time_capt) +"|"+ str(item.mac) +"|"+ str(item.ssid) +"|"+ str(item.security) +"|"+ str(item.rssi) +"|"+ str(item.channel) +"|"+ str(item.manuf) +"|"+ str(item.ap_type) +"|"+ str(item.lat) +"|"+ str(item.lng) + "\n"
+	res_file.write(text)
+res_file.close()
