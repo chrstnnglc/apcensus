@@ -137,8 +137,6 @@ with open('ap_data.csv','wb') as csvfile:
 	for item in ap_list2:
         	write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])	
 
-
-
 #make txt file
 res_file = open("ap_data.txt",'w')
 for item in ap_list2:
