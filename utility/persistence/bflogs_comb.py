@@ -1,7 +1,7 @@
 #This appends all bflog.txt from different readings and creates a file that
 #contains all of them
 
-res_file = open("ap_readings.txt","a+")
+res_file = open("bflog_readings.txt","a+")
 ap_file = open("bflog.txt","r")
 
 for line in ap_file:
