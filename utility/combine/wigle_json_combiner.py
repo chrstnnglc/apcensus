@@ -33,7 +33,7 @@ for s in searches:
     with open('ap_list.csv','ab+') as csvfile:
         write_file = csv.writer(csvfile, delimiter = ',')
         if i == 0:
-            write_file.writerow(["SSID","Net ID","TriLat","TriLong","Encryption","Type","Trans ID","First Time","Last Time","Last Updt"])
+            write_file.writerow(["SSID","Net ID","TriLat","TriLong","Encryption","Channel","Type","Trans ID","First Time","Last Time","Last Updt"])
         i += 1    
         ##write to file data from search.json
         for ap in data1['results']:
@@ -42,6 +42,7 @@ for s in searches:
             trilat = str(ap['trilat'])
             trilong = str(ap['trilong'])
             enc = str(ap['encryption'])
+            ch = str(ap['channel'])
             ap_type = str(ap['type'])
             transid = str(ap['transid'])
             ftime = str(ap['firsttime'])
@@ -50,4 +51,4 @@ for s in searches:
             ltime = to_Manila_timezone(ltime)
             lupdt = str(ap['lastupdt'])
             lupdt = to_Manila_timezone(lupdt)
-            write_file.writerow([ssid, netid, trilat, trilong, enc, ap_type, transid, ftime, ltime, lupdt])
+            write_file.writerow([ssid, netid, trilat, trilong, enc, ch ,ap_type, transid, ftime, ltime, lupdt])
