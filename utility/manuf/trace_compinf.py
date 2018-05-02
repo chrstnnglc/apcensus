@@ -130,14 +130,14 @@ for ap in ap_list:
             ap2.manuf = ap.manuf
 
 
-#make csv file
+#make csv file (will output unique APs)
 with open('ap_data.csv','wb') as csvfile:
 	write_file = csv.writer(csvfile, delimiter = ',')
 	write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
 	for item in ap_list2:
         	write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])	
 
-#make txt file
+#make txt file (will output unique APs)
 res_file = open("ap_data.txt",'w')
 for item in ap_list2:
 	text = 	str(item.gps_time) +"|"+ str(item.time_capt) +"|"+ str(item.mac) +"|"+ str(item.ssid) +"|"+ str(item.security) +"|"+ str(item.rssi) +"|"+ str(item.channel) +"|"+ str(item.manuf) +"|"+ str(item.ap_type) +"|"+ str(item.lat) +"|"+ str(item.lng) + "\n"
