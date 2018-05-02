@@ -26,7 +26,7 @@ i = 0
 with open('master_list.csv') as csvfile:
     reader = csv.reader(csvfile, delimiter=',', quotechar='"')
     for line in reader:
-        if i >= 1:   ##ignore first line
+        if i >= 1:   #ignore first line
             gps_time = line[0]
             time_capt = line[1]
             mac = line[2]

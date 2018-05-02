@@ -172,7 +172,8 @@ def group_type(ap_type):
                 nap_list.append(new_ap)
         elif ap_type == "Unidentified":
                 uni_list.append(new_ap)
-                
+
+#Initialize APs we need to analyze                
 i = 0
 with open('tve_list.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
