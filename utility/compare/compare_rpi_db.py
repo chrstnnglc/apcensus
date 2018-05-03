@@ -54,7 +54,7 @@ with open('tve_list.csv','rb') as csvfile:
 		
 #read Wigle DB trace
 i = 0			
-with open('tve_wdb.csv','rb') as csvfile:
+with open('traversed_tve_wdb.csv','rb') as csvfile:
         reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for line in reader:
                 if i >= 1:   #ignore first line

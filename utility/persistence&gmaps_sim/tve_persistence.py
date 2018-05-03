@@ -1,10 +1,19 @@
 #This filters the master list of APs if an AP reading is in Teacher's Village East
-#This will also compute the persistence of each AP
+#This will also compute the persistence of each AP, and look for confidently gathered APs
+#This will also output the info of boxes in the Teachers Village East
+#Inpput files will be:
+#   bflog_readings.txt -> master list of bflogs
+#   master_list.txt -> master list of APs (this is a unique AP list)
+#   master_gps.txt -> master list of gps gathered
+#   tve_wdb.csv -> master list of Wigle DB (this is a unique AP list)
 #Output files will be:
-#   persist_bflist.csv -> persistence of bflog_readings.txt
+#   bflist_persist.csv -> persistence of bflog_readings.txt
+#   box_info.csv -> information of boxes in Teachers Village East
 #   tve_list.csv -> list of APs found in Teachers Village East
-#   persist_tve.csv -> persistence of APs in Teachers Village East
-
+#   tve_persist.csv -> persistence of APs in Teachers Village East
+#   tve_confident.csv -> list of confidently gathered APs in Teachers Village East
+#   tve_confident.txt -> list of confidently gathered APs in Teachers Village East
+#   traversed_wdb.csv -> list of WDB APs located where we went through
 import math
 import csv
 from latlng_distance import *
@@ -63,6 +72,17 @@ class GPS:
        self.time_capt = time_capt
        self.lat = lat
        self.lng = lng
+
+class WDB:
+    def __init__(self, last_updt=None, last_time=None, mac=None, ssid=None, sec=None, ch=None,lat=None, lng=None):
+        self.last_updt = last_updt
+        self.last_time = last_time
+	self.mac = mac
+	self.ssid = ssid
+	self.security = sec
+	self.channel = ch
+	self.lat = lat
+	self.lng = lng
 
 def round_off_time(time_string):
     if int(time_string[20]) >= 5:
@@ -152,7 +172,7 @@ for i in range(0,14):
         box_list.append(new_box)
         
 #make a csv file for BF persistence
-with open("persist_bflist.csv","wb") as csvfile:
+with open("bflist_persist.csv","wb") as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
     number = 0
     #write_file.writerow(["Total No. of APs", str(len(unique_macs))])
@@ -238,7 +258,7 @@ for i in range(0,14):
                 tve_list.append(ap)
         box_list.append(new_box)
 
-#we will now compute for the time spent, average speed, no. of traversals of boxes
+#Initialize gps readings
 gps_list = []   #this list will contain gps readings
 gps_file = open("master_gps.txt","r")   #open gps file
 for line in gps_file:
@@ -251,6 +271,7 @@ for line in gps_file:
     gps_list.append(new_gps)
 gps_file.close()
 
+#we will now compute for the time spent, average speed, no. of traversals of boxes
 for box in box_list:
     first_time = 0
     for i in range(0,len(gps_list)):
@@ -272,10 +293,63 @@ for box in box_list:
                     speed = (distance/time_spent) * 3.6   #3.6 to convert from m/s to km/hr
                     box.speed += speed
                     box.traversal += 1
+                    
+#We will now make a list of APs that we confidently gathered                    
+confident_list = []
+for box in box_list:
+    if box.time_spent >= 60:
+        for ap in box.ap_list:
+            #meaning, we see this AP everytime we go traversed through the box
+            if ap.persistence >= box.traversal:
+                confident_list.append(ap)
+            else:
+                #meaning, we can see the AP in different dates
+                dates_seen_array = ap.dates_seen.split(",")
+                if len(dates_seen_array) > 2:   #>2 because when seen in 1 date, eg. "03/14/2018," the 2nd element of list is a space character
+                    confident_list.append(ap)
 
+#read Wigle DB trace
+db_list = []
+i = 0			
+with open('tve_wdb.csv','rb') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+        for line in reader:
+                if i >= 1:   #ignore first line
+                        last_updt = line[0]
+                        last_time = line[1]
+                        mac = line[2]
+                        ssid = line[3]
+                        sec = line[4]
+                        ch = line[5]
+                        lat = float(line[6])
+                        lng = float(line[7])
+                        new_ap = WDB(last_updt, last_time, mac, ssid, sec, ch, lat, lng)
+                        db_list.append(new_ap)
+                i += 1
+print len(db_list)
+
+#Filter DB List
+traversed_list = []
+unique_macs = []
+for box in box_list:
+    if box.traversal >= 1:
+        for ap in db_list:
+            if ((ap.lat <= box.north) and (ap.lat >= box.south)) and ((ap.lng <= box.east) and (ap.lng >= box.west)):
+                if ap.mac not in unique_macs:
+                    unique_macs.append(ap.mac)
+                    traversed_list.append(ap)
+                    
 #make a csv file containing information of Boxes
 with open("box_info.csv","wb") as csvfile:
+    #Compute for other box information
+    max_num = max(len(box.ap_list) for box in box_list)
+    min_num = min(len(box.ap_list) for box in box_list)
+    total_ap = sum(len(box.ap_list) for box in box_list)
+    density = float(total_ap) / len(box_list)
     write_file = csv.writer(csvfile, delimiter = ',')
+    write_file.writerow(["Density",str(density)])
+    write_file.writerow(["Max",str(max_num)])
+    write_file.writerow(["Min",str(min_num)])
     write_file.writerow(["Box No.","Total AP","Time Spent","Avg Speed","Traversal"])
     number = 0
     for box in box_list:
@@ -294,15 +368,37 @@ with open("tve_list.csv","wb") as csvfile:
         write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])	
 
 #make a csv file for TVE persistence
-with open("persist_tve.csv","wb") as csvfile:
+with open("tve_persist.csv","wb") as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
     number = 0
     write_file.writerow(["Total No. of APs", str(len(tve_list))])
     for box in box_list:
-        write_file.writerow(["Box no.", "Total APs"])
-        write_file.writerow([str(number), str(len(box.ap_list))])
+        write_file.writerow(["Box No.","Total AP","Time Spent","Avg Speed","Traversal"])
+        write_file.writerow([str(number),str(len(box.ap_list)),str(box.time_spent),str(box.avg_speed),str(box.traversal)])
         write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude","Persistence","Dates Seen"])
         for item in box.ap_list:
             write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng),str(item.persistence),str(item.dates_seen)])	
         number += 1
         write_file.writerow([""])
+
+#make a csv file for TVE confidently gathered APs
+with open("tve_confident.csv","wb") as csvfile:
+    write_file = csv.writer(csvfile, delimiter = ',')
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
+    for item in confident_list:
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])	
+
+#make a txt file for TVE confidently gathered APs
+res_file = open("tve_confident.txt","w")
+for item in confident_list:
+    text = str(item.gps_time) +"|"+ str(item.time_capt) +"|"+ str(item.mac) +"|"+ str(item.ssid) +"|"+ str(item.security) +"|"+ str(item.rssi) +"|"+ str(item.channel) +"|"+ str(item.manuf) +"|"+ str(item.ap_type) +"|"+ str(item.lat) +"|"+ str(item.lng) + "\n"
+    res_file.write(text)
+res_file.close()
+
+#make a csv file of traversed WDB APs
+with open("traversed_tve_wdb.csv","wb") as csvfile:
+    write_file = csv.writer(csvfile, delimiter = ',')
+    write_file.writerow(["Last Updt","Last Time","MAC","SSID","Encryption","Channel","Latitude","Longitude"])
+    for item in traversed_list:
+        write_file.writerow([str(item.last_updt),str(item.last_time),str(item.mac),str(item.ssid),str(item.security),str(item.channel),str(item.lat),str(item.lng)])
+
