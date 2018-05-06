@@ -326,7 +326,6 @@ with open('tve_wdb.csv','rb') as csvfile:
                         new_ap = WDB(last_updt, last_time, mac, ssid, sec, ch, lat, lng)
                         db_list.append(new_ap)
                 i += 1
-print len(db_list)
 
 #Filter DB List
 traversed_list = []
@@ -338,14 +337,25 @@ for box in box_list:
                 if ap.mac not in unique_macs:
                     unique_macs.append(ap.mac)
                     traversed_list.append(ap)
+#count boxes with AP readings. We will only consider these boxes to compute for density
+traversed_boxes = 0
+box_w_ap = 0
+for box in box_list:
+    if box.traversal != 0:
+        traversed_boxes += 1
+    if len(box.ap_list) != 0:
+        box_w_ap += 1
+print traversed_boxes
+print box_w_ap
                     
 #make a csv file containing information of Boxes
 with open("box_info.csv","wb") as csvfile:
     #Compute for other box information
     max_num = max(len(box.ap_list) for box in box_list)
-    min_num = min(len(box.ap_list) for box in box_list)
+    min_num = min(len(box.ap_list) for box in box_list if len(box.ap_list) != 0)
     total_ap = sum(len(box.ap_list) for box in box_list)
-    density = float(total_ap) / len(box_list)
+    density = float(total_ap) / traversed_boxes
+    
     write_file = csv.writer(csvfile, delimiter = ',')
     write_file.writerow(["Density",str(density)])
     write_file.writerow(["Max",str(max_num)])
