@@ -337,16 +337,6 @@ for box in box_list:
                 if ap.mac not in unique_macs:
                     unique_macs.append(ap.mac)
                     traversed_list.append(ap)
-#count boxes with AP readings. We will only consider these boxes to compute for density
-traversed_boxes = 0
-box_w_ap = 0
-for box in box_list:
-    if box.traversal != 0:
-        traversed_boxes += 1
-    if len(box.ap_list) != 0:
-        box_w_ap += 1
-print traversed_boxes
-print box_w_ap
                     
 #make a csv file containing information of Boxes
 with open("box_info.csv","wb") as csvfile:
@@ -354,6 +344,12 @@ with open("box_info.csv","wb") as csvfile:
     max_num = max(len(box.ap_list) for box in box_list)
     min_num = min(len(box.ap_list) for box in box_list if len(box.ap_list) != 0)
     total_ap = sum(len(box.ap_list) for box in box_list)
+
+    #count boxes with AP readings. We will only consider these boxes to compute for density
+    traversed_boxes = 0
+    for box in box_list:
+        if box.traversal != 0:
+            traversed_boxes += 1
     density = float(total_ap) / traversed_boxes
     
     write_file = csv.writer(csvfile, delimiter = ',')

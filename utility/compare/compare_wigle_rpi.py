@@ -1,129 +1,118 @@
-##THIS COMPARES Wigle readings and RPi readings
+#Compare RPi and Wigle App readings
 import csv
-
-unique_bssid = []
-wigle_list = []
 rpi_list = []
+wapp_list = []
 common_list = []
 
 class AP:
-	def __init__(self, bssid=None, ssid=None, channel=None,enc=None):
-		self.bssid = bssid
+        def __init__(self, gps_time=None, time_capt=None, mac=None, ssid=None, sec=None, rssi=None, ch=None, manuf=None, ap_type=None,lat=None, lng=None,):
+                self.gps_time = gps_time
+                self.time_capt = time_capt
+		self.mac = mac
 		self.ssid = ssid
-		self.channel = channel
-		self.enc = enc
-		self.r_channel = ""
-		self.r_enc = ""
-		
-		self.avg_rssi = 0
-		self.sum_rssi = 0
-		self.num_readings = 0
-		self.r_avg_rssi = 0
-		
-	def add_num_packets(self):
-		self.num_readings += 1
-		
-	def compute_avg_rssi(self):				
-		self.avg_rssi = self.sum_rssi / self.num_readings
-##read Wigle trace
+		self.security = sec
+		self.rssi = rssi
+		self.channel = ch
+		self.manuf = manuf
+		self.ap_type = ap_type
+		self.lat = lat
+		self.lng = lng
+
+class WA:
+        def __init__(self, time_capt=None, mac=None, ssid=None, sec=None, rssi=None, ch=None,lat=None, lng=None):
+                self.time_capt = time_capt
+                self.mac = mac
+                self.ssid = ssid
+                self.sec = sec
+                self.rssi = rssi
+                self.ch = ch
+                self.lat = lat
+                self.lng = lng
+        
+
+#read RPi trace
 i = 0		
-with open('WigleWifi_20180218142909.csv','rb') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-	for line in reader:
-		if i > 1:	##ignore first 2 lines
-			
-			bssid = line[0]
-			ssid = line[1]
-			enc = line[2]
-			channel = line[4]
-			rssi = int(line[5])
-			
-			if bssid not in unique_bssid:
-				unique_bssid.append(bssid)
-				new_ap = AP(bssid,ssid,channel,enc)
-				new_ap.add_num_packets()
-				new_ap.sum_rssi += rssi
-				wigle_list.append(new_ap)
-			else:
-				bssid = line[0]
-				rssi = rssi = int(line[5])
-				for item in wigle_list:
-					if bssid == item.bssid:
-						item.add_num_packets()
-						item.sum_rssi += rssi
-		i += 1
-	for item in wigle_list:
-		item.compute_avg_rssi()
+with open('gtn_list.csv','rb') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+        for line in reader:
+                if i >= 1:   #ignore first line
+                        gps_time = line[0]
+                        time_capt = line[1]
+                        mac = line[2]
+                        ssid = line[3]
+                        sec = line[4]
+                        rssi = line[5]
+                        ch = line[6]
+                        manuf = line[7]
+                        ap_type = line[8]
+                        lat = line[9]
+                        lng = line[10]
+                        new_ap = AP(gps_time,time_capt,mac,ssid,sec,rssi,ch,manuf,ap_type,lat,lng)
+                        rpi_list.append(new_ap)
+                i += 1
 
-print "APs in WiGLE: " + str(len(wigle_list))		
+#read Wigle App unique trace
+i = 0
+with open('gtn_wigle_unique.csv','rb') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+        for line in reader:
+                if i >= 1:   #ignore first line
+                        time_capt = line[0]
+                        mac = line[1]
+                        ssid = line[2]
+                        sec = line[3]
+                        rssi = line[4]
+                        ch = line[5]
+                        lat = line[6]
+                        lng = line[7]
+                        new_ap = WA(time_capt,mac,ssid,sec,rssi,ch,lat,lng)
+                        wapp_list.append(new_ap)
+                i += 1
 
-##read RPi trace
-i = 0			
-with open('z_trace.csv','rb') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-	for line in reader:
-		if i != 0:		##ignore first line
-			bssid = line[0]
-			ssid = line[1]
-			enc = line[2]
-			channel = line[3]
-			avg_rssi = line[5]
-			new_ap = AP(bssid,ssid,channel,enc)
-			new_ap.r_avg_rssi = avg_rssi
-			rpi_list.append(new_ap)
-		i += 1
-		
-print "APs in RPi: " + str(len(rpi_list))
-		
-rpi_index = []
-wigle_index = []		
-for wigle in wigle_list:
-	for rpi in rpi_list:
-		##if same ang bssid, ibig sabihin nakita sa both device. Add data of rpi to wigle reading then put to common list
-		if wigle.bssid == rpi.bssid:
-			wigle.r_channel = rpi.channel
-			wigle.r_avg_rssi = rpi.r_avg_rssi
-			wigle.r_enc = rpi.enc
-			common_list.append(wigle)
-			##remember bssid so we can remove them in rpi/wigle_list
-			wigle_index.append(wigle.bssid)
-			rpi_index.append(rpi.bssid)
+#compare RPi and Wigle App trace
+common_index = []
+for rpi in rpi_list:
+        for wapp in wapp_list:
+                if rpi.mac == wapp.mac:
+                        common_list.append(rpi)  
+                        common_index.append(rpi.mac)
 
-##remove common aps in wigle and rpi list
-for i in range(len(rpi_index)):
-	for wigle in wigle_list:
-		if wigle_index[i] == wigle.bssid:
-			wigle_list.remove(wigle)
-			break
-	for rpi in rpi_list:
-		if rpi_index[i] == rpi.bssid:
-			rpi_list.remove(rpi)
+#remove common aps in rpi and wapp list
+for i in range(len(common_index)):
+        for ap in rpi_list:
+                if common_index[i] == ap.mac:
+                        rpi_list.remove(ap)
+                        break
+        for ap in wapp_list:
+                if common_index[i] == ap.mac:
+			wapp_list.remove(ap)
 			break
 
-
-##print final data in csv file			
+#print final data in csv file			
 print "Common APs: " + str(len(common_list))
-print "Unique WiGLE: " + str(len(wigle_list))
 print "Unique RPi: " + str(len(rpi_list))
-with open('1611xwigle.csv','wb') as csvfile:
+print "Unique Wigle App: " + str(len(wapp_list))
+
+#create a csv file
+with open('gtnxwigle.csv','wb') as csvfile:
 	write_file = csv.writer(csvfile, delimiter = ',')
-	
-	##write common aps
+	#write common aps
 	write_file.writerow(["Common",str(len(common_list))])
-	write_file.writerow(["BSSID","SSID","Wigle-Encryption","RPi-Encryption","Wigle-Channel","RPi-Channel","Wigle Avg RSSI","RPi Avg RSSI"])
-	for item in common_list:
-		write_file.writerow([str(item.bssid),str(item.ssid),str(item.enc),str(item.r_enc),str(item.channel),str(item.r_channel),str(item.avg_rssi),str(item.r_avg_rssi)])
+	write_file.writerow(["GPS Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
+        for item in common_list:
+                write_file.writerow([str(item.gps_time),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])	
+
+	#write unique aps in rpi
+	write_file.writerow([" "])
+	write_file.writerow(["RPi",str(len(rpi_list))])
+	write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
+        for item in rpi_list:
+                write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])	
 	
-	##write unique aps in wigle
+	#write unique aps in db
 	write_file.writerow([" "])
-	write_file.writerow(["WiGLE Unique",str(len(wigle_list))])
-	write_file.writerow(["BSSID","SSID","Wigle-Encryption","Wigle-Channel","Wigle Avg RSSI"])
-	for item in wigle_list:
-		write_file.writerow([str(item.bssid),str(item.ssid),str(item.enc),str(item.channel),str(item.avg_rssi)])
-		
-	##write unique aps in rpi
-	write_file.writerow([" "])
-	write_file.writerow(["RPi Unique", str(len(rpi_list))])
-	write_file.writerow(["BSSID","SSID","RPi-Encryption","RPi-Channel","RPi Avg RSSI"])
-	for item in rpi_list:
-		write_file.writerow([str(item.bssid),str(item.ssid),str(item.enc),str(item.channel),str(item.r_avg_rssi)])
+	write_file.writerow(["Wigle App", str(len(wapp_list))])
+	write_file.writerow(["First Seen","MAC","SSID","Encryption","RSSI","Channel","Latitude","Longitude"])
+        for item in wapp_list:
+                write_file.writerow([str(item.time_capt),str(item.mac),str(item.ssid),str(item.sec),str(item.rssi),str(item.ch),str(item.lat),str(item.lng)])
+
