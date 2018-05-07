@@ -33,7 +33,7 @@ class WDB:
 		
 #read RPi trace
 i = 0		
-with open('tve_list.csv','rb') as csvfile:
+with open('tve_confident.csv','rb') as csvfile:
         reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for line in reader:
                 if i >= 1:   #ignore first line
@@ -100,7 +100,7 @@ db_list.sort(key=operator.attrgetter('last_updt'),reverse=True)
 print "Common APs: " + str(len(common_list))
 print "Unique RPi: " + str(len(rpi_list))
 print "Unique Wigle DB: " + str(len(db_list))
-with open('trikexwdb.csv','wb') as csvfile:
+with open('tveconfxwdb.csv','wb') as csvfile:
 	write_file = csv.writer(csvfile, delimiter = ',')
 	#write common aps
 	write_file.writerow(["Common",str(len(common_list))])

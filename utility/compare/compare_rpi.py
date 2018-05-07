@@ -60,9 +60,9 @@ with open('gtn_list.csv','rb') as csvfile:
                         lng = line[10]
                         new_ap = AP(gps_time,time_capt,mac,ssid,sec,rssi,ch,manuf,ap_type,lat,lng)
                         rpi2_list.append(new_ap)
-		i += 1
-		
-common_index = []	
+                i += 1
+
+common_index = []
 for rpi in rpi_list:
 	for rpi2 in rpi2_list:
                 #get common APs in both list
@@ -82,8 +82,7 @@ for i in range(len(common_index)):
 			rpi2_list.remove(rpi)
 			break
 
-
-##print final data in csv file
+#print final data in csv file
 print "Common APs: " + str(len(common_list))
 print "Unique 1st List: " + str(len(rpi_list))
 print "Unique 2nd List: " + str(len(rpi2_list))

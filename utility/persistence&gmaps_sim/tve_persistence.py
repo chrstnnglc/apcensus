@@ -231,8 +231,7 @@ south = LatCoordDistance(north,50)
 west = 121.057193
 east = LngCoordDistance(north,west,50)
 
-#initialize the boxes again. This time we add all persistence to compute for the
-#persistence of unique list of APs
+#initialize the boxes again. This time we will put the unique APs in the boxes
 for i in range(0,14):
     if i != 0:
         north = south
@@ -254,8 +253,10 @@ for i in range(0,14):
         for ap in ap_readings:
             #check if AP is within the box bounds
             if ((ap.lat <= new_box.north) and (ap.lat >= new_box.south)) and ((ap.lng <= new_box.east) and (ap.lng >= new_box.west)):
-                new_box.ap_list.append(ap)
-                tve_list.append(ap)
+                #we may have duplicate APs in our list if an AP is located in the bounds 
+                if ap not in tve_list:
+                    new_box.ap_list.append(ap)
+                    tve_list.append(ap)
         box_list.append(new_box)
 
 #Initialize gps readings

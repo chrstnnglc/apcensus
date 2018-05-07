@@ -175,7 +175,7 @@ def group_type(ap_type):
 
 #Initialize APs we need to analyze                
 i = 0
-with open('tve_list.csv','rb') as csvfile:
+with open('gtn_list.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for line in reader:
                 if i != 0:		##ignore first line
@@ -231,7 +231,7 @@ print "NOT AP: " + str(len(nap_list))
 print "UNIDENTIFIED: " + str(len(uni_list))
 
 #make a csv file wherein APs are grouped up according to brand(default ssid)
-with open('brand_tve.csv','wb') as csvfile:
+with open('tve_brand.csv','wb') as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
 
     write_file.writerow(["Total APs",str(len(ap_list))])
@@ -331,7 +331,7 @@ with open('brand_tve.csv','wb') as csvfile:
         write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
 #make a csv file wherein APs are grouped up according to type
-with open('type_tve.csv','wb') as csvfile:
+with open('tve_type.csv','wb') as csvfile:
         write_file = csv.writer(csvfile, delimiter = ',')
         
         write_file.writerow(["Total APs",str(len(ap_list))])
