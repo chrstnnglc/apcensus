@@ -172,7 +172,7 @@ for i in range(0,14):
         box_list.append(new_box)
         
 #make a csv file for BF persistence
-with open("bflist_persist.csv","wb") as csvfile:
+with open("results/bflist_persist.csv","wb") as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
     number = 0
     #write_file.writerow(["Total No. of APs", str(len(unique_macs))])
@@ -340,7 +340,7 @@ for box in box_list:
                     traversed_list.append(ap)
                     
 #make a csv file containing information of Boxes
-with open("box_info.csv","wb") as csvfile:
+with open("results/box_info.csv","wb") as csvfile:
     #Compute for other box information
     max_num = max(len(box.ap_list) for box in box_list)
     min_num = min(len(box.ap_list) for box in box_list if len(box.ap_list) != 0)
@@ -368,14 +368,14 @@ with open("box_info.csv","wb") as csvfile:
         number += 1
 
 #make a csv file of APs in TVE
-with open("tve_list.csv","wb") as csvfile:
+with open("results/tve_list.csv","wb") as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
-    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude","Persistence","Dates Seen"])
     for item in tve_list:
-        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])	
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng),str(item.persistence),str(item.dates_seen)])	
 
-#make a csv file for TVE persistence
-with open("tve_persist.csv","wb") as csvfile:
+#make a csv file for TVE persistence, grouped according to boxes
+with open("results/tve_persist.csv","wb") as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
     number = 0
     write_file.writerow(["Total No. of APs", str(len(tve_list))])
@@ -389,21 +389,21 @@ with open("tve_persist.csv","wb") as csvfile:
         write_file.writerow([""])
 
 #make a csv file for TVE confidently gathered APs
-with open("tve_confident.csv","wb") as csvfile:
+with open("results/tve_confident.csv","wb") as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
     write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in confident_list:
         write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])	
 
 #make a txt file for TVE confidently gathered APs
-res_file = open("tve_confident.txt","w")
+res_file = open("results/tve_confident.txt","w")
 for item in confident_list:
     text = str(item.gps_time) +"|"+ str(item.time_capt) +"|"+ str(item.mac) +"|"+ str(item.ssid) +"|"+ str(item.security) +"|"+ str(item.rssi) +"|"+ str(item.channel) +"|"+ str(item.manuf) +"|"+ str(item.ap_type) +"|"+ str(item.lat) +"|"+ str(item.lng) + "\n"
     res_file.write(text)
 res_file.close()
 
 #make a csv file of traversed WDB APs
-with open("traversed_tve_wdb.csv","wb") as csvfile:
+with open("results/traversed_tve_wdb.csv","wb") as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
     write_file.writerow(["Last Updt","Last Time","MAC","SSID","Encryption","Channel","Latitude","Longitude"])
     for item in traversed_list:
