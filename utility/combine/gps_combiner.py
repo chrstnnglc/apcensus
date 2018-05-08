@@ -4,7 +4,7 @@ import datetime
 
 def rpi_time_convert(time_in):
         formatto = "%Y-%m-%d %H:%M:%S.%f"
-        formatfrom = "%m/%d/%Y %H:%M:%S.%f"
+        formatfrom = "%m/%d/%y %H:%M:%S.%f"
         time_out = datetime.datetime.strptime(time_in,formatfrom)
         time_out = time_out.strftime(formatto)
         return time_out
