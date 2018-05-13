@@ -85,7 +85,9 @@ def gps_time_convert(time_in):
         return time_out
 #----------------------------------------------------------------------------------------------------------------------------------
 sniff(prn = callf, offline="trace.pcap")
-
+sniff(prn = callf, offline="trace.pcap1")
+sniff(prn = callf, offline="trace.pcap2")
+sniff(prn = callf, offline="trace.pcap3")
 unique_aps = []
 ap_list2 = []
 bf_file = open("bflog.txt","r")
