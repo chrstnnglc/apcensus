@@ -30,13 +30,21 @@ phone_list = []
 nap_list = []
 uni_list = []
 
-#these list will contain the classification of internet
+#these lists will contain the classification of internet based on manufacturer
 fiber = ["Fiberhom"]
 broadband = []
 mobile_bb = ["GreenPac"]
 hotspot = ["TctMobil"]
 phone = ["SamsungE","Apple","VivoMobi","Nokia","SianoMob","RapidMob","Longchee","Microsof","SenaoInt","Guangdon","BlackBer"]
 none_ap = ["HewlettP","Roku","Mxchip","Micro-St","Bose","Guangzho","Raspberr"]
+
+#these lists will contain the classification of internet based on SSID
+fiber2 = []
+broadband2 = ["PLDTHOMEDSL", "PLDTMyDSL", "ZTEH108N", "SKYbroadband", "NetgearORBI"]
+mobile_bb2 = ["HomeBro_ULTERA", "HUAWEI-E5172", "HUAWEI-B315"]
+hotspot2 = ["EVOHOTSPOT", "EVO WIFI HOTSPOT", "EVOLUTION PREPAID HOT SPOT", "ZTE-MF65M", "Globe_LTE MIFI", "HUAWEI-E5330", "HUAWEI-E5372", "HUAWEI-E5220", "HUAWEI-E5373", "HUAWEI-E5336"]
+phone2 = ["HUAWEI Y541", "HUAWEI GR5", "HUAWEI Y7", "HUAWEI P9", "HUAWEI P10", "AndroidAP", "AndroidHotspot", "iPhone"]
+none_ap2 = ["YICarCam", "Mitsubishi Wireless TV", "BRAVIA", "DashCamStealth"]
 
 #this will contain the list of manufacturers wherein we have no guess yet
 unid_manuf = []
@@ -57,7 +65,7 @@ class AP:
 
 #check AP's ssid if it falls under the list
 #these are the default SSIDs that we know so far
-def ssid_check(ssid):
+def brand_check(ssid):
         ssid_lower_case = ssid.lower()
         if "pldt" in ssid_lower_case:
                 pldt.append(new_ap)
@@ -105,57 +113,29 @@ def type_check(manuf,ssid,mac):
 			return "Phone"
 		elif manuf in none_ap:
 			return "Not an AP"
-                
-		else:   #check special cases
-                        if ("EVOHOTSPOT" in ssid) or ("EVO WIFI HOTSPOT" in ssid) or ("EVOLUTION PREPAID HOT SPOT" in ssid):
-				return "Hotspot"
-			
-                        #This string is included in the default SSID of a ZTE hotspot
-			if "ZTE-MF65M" in ssid:
-				return "Hotspot"
-			
-                        if ("PLDTHOMEDSL" in ssid) or ("PLDTMyDSL" in ssid):
+		else:
+                        if "bayandsl" in ssid.lower():
                                 return "Broadband"
-
-			if "ZTEH108N" in ssid:
-                                return "Broadband"
-
-                        if "SKYbroadband" in ssid:
-                                return "Broadband"
-
-                        if "NetgearORBI" in ssid:
-                                return "Broadband" 
-
-                        if "HomeBro_ULTERA" in ssid:
-                                return "Mobile broadband"
-
-			if "Globe_LTE MIFI" in ssid:
-                                return "Hotspot" 
-			
-			if ("HUAWEI-E5330" in ssid) or ("HUAWEI-E5372" in ssid) or ("HUAWEI-E5220" in ssid):
-				return "Hotspot"
-
-			if ("HUAWEI Y541" in ssid) or ("HUAWEI GR5" in ssid) or ("HUAWEI Y7" in ssid) or ("HUAWEI P9" in ssid) or ("HUAWEI P10" in ssid):
-                                return "Phone"
+                        for txt in fiber2:
+                                if txt in ssid:
+                                        return "Fiber"
+                        for txt in broadband2:
+                                if txt in ssid:
+                                        return "Broadband"
+                        for txt in mobile_bb2:
+                                if txt in ssid:
+                                        return "Mobile broadband"
+                        for txt in hotspot2:
+                                if txt in ssid:
+                                        return "Hotspot"
+                        for txt in phone2:
+                                if txt in ssid:
+                                        return "Phone"
+                        for txt in none_ap2:
+                                if txt in ssid:
+                                        return "Not an AP"
                         
-                        if "HUAWEI-E5172" in ssid:
-                                return "Mobile broadband"
-
-			if ("AndroidAP" in ssid) or ("AndroidHotspot" in ssid):
-                                return "Phone"
-
-                        if "iPhone" in ssid:
-                                return "Phone"
-
-                        if "YICarCam" in ssid:
-                                return "Not an AP"
-                        
-                        if "Mitsubishi Wireless TV" in ssid:
-                                return "Not an AP"
-			
-			#if not in special cases, unidentified
-			else:
-                                return "Unidentified"
+                return "Unidentified"
 
 def group_type(ap_type):
         if ap_type == "Fiber":
@@ -175,7 +155,7 @@ def group_type(ap_type):
 
 #Initialize APs we need to analyze                
 i = 0
-with open('master_list.csv','rb') as csvfile:
+with open('gtl2_list.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for line in reader:
                 if i != 0:		##ignore first line
@@ -197,7 +177,7 @@ with open('master_list.csv','rb') as csvfile:
                         new_ap = AP(gps_time,time_capt,mac,ssid,sec,rssi,ch,manuf,ap_type,lat,lng)
                         ap_list.append(new_ap)
                         #check each ssid if it falls under the list
-                        ssid_check(ssid)
+                        brand_check(ssid)
                         #group ap according to type
                         group_type(ap_type)
 			
@@ -231,7 +211,7 @@ print "NOT AP: " + str(len(nap_list))
 print "UNIDENTIFIED: " + str(len(uni_list))
 
 #make a csv file wherein APs are grouped up according to brand(default ssid)
-with open('mlist_brand.csv','wb') as csvfile:
+with open('gtl2_brand.csv','wb') as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
 
     write_file.writerow(["Total APs",str(len(ap_list))])
@@ -331,7 +311,7 @@ with open('mlist_brand.csv','wb') as csvfile:
         write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
 #make a csv file wherein APs are grouped up according to type
-with open('mlist_type.csv','wb') as csvfile:
+with open('gtl2_type.csv','wb') as csvfile:
         write_file = csv.writer(csvfile, delimiter = ',')
         
         write_file.writerow(["Total APs",str(len(ap_list))])
@@ -377,14 +357,14 @@ with open('mlist_type.csv','wb') as csvfile:
                 write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
 #make a csv file of master list
-with open('master_list.csv','wb') as csvfile:
+with open('gtl2_list.csv','wb') as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
     write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in ap_list:
             write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])	
 
 #make a text file of master list
-res_file = open("master_list.txt",'w')
+res_file = open("gtl2_list.txt",'w')
 for item in ap_list:
 	text = 	str(item.gps_time) +"|"+ str(item.time_capt) +"|"+ str(item.mac) +"|"+ str(item.ssid) +"|"+ str(item.security) +"|"+ str(item.rssi) +"|"+ str(item.channel) +"|"+ str(item.manuf) +"|"+ str(item.ap_type) +"|"+ str(item.lat) +"|"+ str(item.lng) + "\n"
 	res_file.write(text)
