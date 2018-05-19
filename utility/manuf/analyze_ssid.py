@@ -155,7 +155,7 @@ def group_type(ap_type):
 
 #Initialize APs we need to analyze                
 i = 0
-with open('gtl2_list.csv','rb') as csvfile:
+with open('master_list.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for line in reader:
                 if i != 0:		##ignore first line

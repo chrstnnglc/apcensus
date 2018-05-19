@@ -354,6 +354,7 @@ with open("results/box_info.csv","wb") as csvfile:
     density = float(total_ap) / traversed_boxes
     
     write_file = csv.writer(csvfile, delimiter = ',')
+    write_file.writerow(["Total No. of APs", str(len(tve_list))])
     write_file.writerow(["Density",str(density)])
     write_file.writerow(["Max",str(max_num)])
     write_file.writerow(["Min",str(min_num)])

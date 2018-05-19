@@ -53,14 +53,14 @@ with open('ap_list.csv') as csvfile:
         i+=1
 
 #create a csv file of unique wigle db list
-with open('tve_wdb.csv','wb') as csvfile:
+with open('payatas_wdb.csv','wb') as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
     write_file.writerow(["Last Updt","Last Time","MAC","SSID","Encryption","Channel","Latitude","Longitude"])
     for item in ap_list:
         write_file.writerow([str(item.last_updt),str(item.last_time),str(item.mac),str(item.ssid),str(item.security),str(item.channel),str(item.lat),str(item.lng)])
     
 #create a txt file of unique wigle db list
-res_file = open("tve_wdb.txt",'w')
+res_file = open("payatas_wdb.txt",'w')
 for item in ap_list:
     text = str(item.last_updt) +"|"+ str(item.last_time) +"|"+ str(item.mac) +"|"+ str(item.ssid) +"|"+ str(item.security) +"|"+ str(item.channel) +"|"+ str(item.lat) +"|"+ str(item.lng) +"\n"
     res_file.write(text)  

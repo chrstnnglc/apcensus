@@ -21,7 +21,7 @@ def get_search_number(s):
         return int(s[6:])
 
 #look for all search.json files in the directory given
-searches = [s for s in os.listdir('C:/wamp64/www/gmaps/teachersvill/wigledb') if is_search(s)]
+searches = [s for s in os.listdir('C:/Users/arvin bandong/Desktop/NDSG/apcensus/areas_traces/payatas/wigledb/json') if is_search(s)]
 
 #loop through all search.json files and write/append them to the output file
 i = 0
