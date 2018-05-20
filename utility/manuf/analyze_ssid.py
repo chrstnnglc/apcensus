@@ -155,7 +155,7 @@ def group_type(ap_type):
 
 #Initialize APs we need to analyze                
 i = 0
-with open('master_list.csv','rb') as csvfile:
+with open('gtl_list.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for line in reader:
                 if i != 0:		##ignore first line
@@ -211,7 +211,7 @@ print "NOT AP: " + str(len(nap_list))
 print "UNIDENTIFIED: " + str(len(uni_list))
 
 #make a csv file wherein APs are grouped up according to brand(default ssid)
-with open('gtl2_brand.csv','wb') as csvfile:
+with open('gtl_brand.csv','wb') as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
 
     write_file.writerow(["Total APs",str(len(ap_list))])
@@ -311,7 +311,7 @@ with open('gtl2_brand.csv','wb') as csvfile:
         write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
 #make a csv file wherein APs are grouped up according to type
-with open('gtl2_type.csv','wb') as csvfile:
+with open('gtl_type.csv','wb') as csvfile:
         write_file = csv.writer(csvfile, delimiter = ',')
         
         write_file.writerow(["Total APs",str(len(ap_list))])
@@ -357,14 +357,14 @@ with open('gtl2_type.csv','wb') as csvfile:
                 write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])
 
 #make a csv file of master list
-with open('gtl2_list.csv','wb') as csvfile:
+with open('gtl_list.csv','wb') as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
     write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in ap_list:
             write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])	
 
 #make a text file of master list
-res_file = open("gtl2_list.txt",'w')
+res_file = open("gtl_list.txt",'w')
 for item in ap_list:
 	text = 	str(item.gps_time) +"|"+ str(item.time_capt) +"|"+ str(item.mac) +"|"+ str(item.ssid) +"|"+ str(item.security) +"|"+ str(item.rssi) +"|"+ str(item.channel) +"|"+ str(item.manuf) +"|"+ str(item.ap_type) +"|"+ str(item.lat) +"|"+ str(item.lng) + "\n"
 	res_file.write(text)

@@ -43,7 +43,7 @@ class WDB:
 
 #read tricycle readings first
 i = 0	
-with open('tve_list.csv','rb') as csvfile:
+with open('payatas_list.csv','rb') as csvfile:
         reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for line in reader:
 		if i >= 1:		#ignore first line
@@ -66,7 +66,7 @@ with open('tve_list.csv','rb') as csvfile:
 
 #read GT readings
 i = 0			
-with open('gtd_list.csv','rb') as csvfile:
+with open('gtn_list.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for line in reader:
 		if i >= 1:		#ignore first line
@@ -87,7 +87,7 @@ with open('gtd_list.csv','rb') as csvfile:
 
 #read WiGLE DB readings
 i = 0			
-with open('traversed_tve_wdb.csv','rb') as csvfile:
+with open('traversed_payatas_wdb.csv','rb') as csvfile:
         reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for line in reader:
                 if i >= 1:   #ignore first line
@@ -226,7 +226,7 @@ with open('comp3-unique_trike.csv','wb') as csvfile:
     for item in unique_trike:
 	write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng),str(item.persistence),str(item.dates_seen)])
 
-with open('comp3-unique_gtd.csv','wb') as csvfile:
+with open('comp3-unique_gtn.csv','wb') as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
     write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in unique_gt:

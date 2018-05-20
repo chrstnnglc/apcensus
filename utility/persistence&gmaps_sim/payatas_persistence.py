@@ -8,11 +8,11 @@
 #   payatas_wdb.csv -> master list of Wigle DB (this is a unique AP list)
 #Output files will be:
 #   bflist_persist.csv -> persistence of bflog_readings.txt
-#   box_info.csv -> information of boxes in Teachers Village East
-#   payatas_list.csv -> list of APs found in Teachers Village East
-#   payatas_persist.csv -> persistence of APs in Teachers Village East
-#   payatas_confident.csv -> list of confidently gathered APs in Teachers Village East
-#   payatas_confident.txt -> list of confidently gathered APs in Teachers Village East
+#   box_info.csv -> information of boxes in Payatas
+#   payatas_list.csv -> list of APs found in Payatas
+#   payatas_persist.csv -> persistence of APs in Payatas
+#   payatas_confident.csv -> list of confidently gathered APs in Payatas
+#   payatas_confident.txt -> list of confidently gathered APs in Paytas
 #   traversed_payatas_wdb.csv -> list of WDB APs located where we went through
 import math
 import csv
