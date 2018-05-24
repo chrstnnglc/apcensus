@@ -14,7 +14,7 @@ common_gt_wdb = []
 common_all = []
 
 class AP:
-	def __init__(self, gps_time=None, time_capt=None, mac=None, ssid=None, sec=None, rssi=None, ch=None, manuf=None, ap_type=None,lat=None, lng=None, persistence=None, dates_seen=None):
+	def __init__(self, gps_time=None, time_capt=None, mac=None, ssid=None, sec=None, rssi=None, ch=None, manuf=None, ap_type=None,lat=None, lng=None, box_num=None, box_time=None, box_speed=None, box_traversal=None, persistence=None, dates_seen=None):
                 self.gps_time = gps_time
                 self.time_capt = time_capt
 		self.mac = mac
@@ -26,6 +26,10 @@ class AP:
 		self.ap_type = ap_type
 		self.lat = lat
 		self.lng = lng
+		self.box_num = box_num
+		self.box_time = box_time
+		self.box_speed = box_speed
+		self.box_traversal = box_traversal
                 self.persistence = persistence
                 self.dates_seen = dates_seen
                 self.last_updt = ""     #will be equal to wigle db last updt if same ap/mac
@@ -43,7 +47,7 @@ class WDB:
 
 #read tricycle readings first
 i = 0	
-with open('payatas_list.csv','rb') as csvfile:
+with open('tve_list.csv','rb') as csvfile:
         reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for line in reader:
 		if i >= 1:		#ignore first line
@@ -58,15 +62,19 @@ with open('payatas_list.csv','rb') as csvfile:
                         ap_type = line[8]
                         lat = line[9]
                         lng = line[10]
-                        persistence = line[11]
-                        dates_seen = line[12]
-                        new_ap = AP(gps_time,time_capt,mac,ssid,sec,rssi,ch,manuf,ap_type,lat,lng,persistence,dates_seen)
+                        box_num = line[11]
+                        box_time = line[12]
+                        box_speed = line[13]
+                        box_traversal = line[14]
+                        persistence = line[15]
+                        dates_seen = line[16]
+                        new_ap = AP(gps_time,time_capt,mac,ssid,sec,rssi,ch,manuf,ap_type,lat,lng,box_num,box_time,box_speed,box_traversal,persistence,dates_seen)
                         unique_trike.append(new_ap)
 		i += 1
 
 #read GT readings
 i = 0			
-with open('gtn_list.csv','rb') as csvfile:
+with open('gtd_list.csv','rb') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for line in reader:
 		if i >= 1:		#ignore first line
@@ -87,7 +95,7 @@ with open('gtn_list.csv','rb') as csvfile:
 
 #read WiGLE DB readings
 i = 0			
-with open('traversed_payatas_wdb.csv','rb') as csvfile:
+with open('traversed_tve_wdb.csv','rb') as csvfile:
         reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for line in reader:
                 if i >= 1:   #ignore first line
@@ -222,11 +230,11 @@ print "GT and WDB: " + str(len(common_gt_wdb))
 #Printing Results. Make separate CSV files for each cross reference
 with open('comp3-unique_trike.csv','wb') as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
-    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude","Persistence","Dates Seen"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude","Box No.","Box Time","Box Speed","Box Traversal","Persistence","Dates Seen"])
     for item in unique_trike:
-	write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng),str(item.persistence),str(item.dates_seen)])
+	write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng),str(item.box_num),str(item.box_time),str(item.box_speed),str(item.box_traversal),str(item.persistence),str(item.dates_seen)])	
 
-with open('comp3-unique_gtn.csv','wb') as csvfile:
+with open('comp3-unique_gtd.csv','wb') as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
     write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
     for item in unique_gt:
@@ -240,15 +248,15 @@ with open('comp3-unique_wdb.csv','wb') as csvfile:
     
 with open('comp3-trikexgt.csv','wb') as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
-    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude","Persistence","Dates Seen"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude","Box No.","Box Time","Box Speed","Box Traversal","Persistence","Dates Seen"])
     for item in common_trike_gt:
-        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng),str(item.persistence),str(item.dates_seen)])
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng),str(item.box_num),str(item.box_time),str(item.box_speed),str(item.box_traversal),str(item.persistence),str(item.dates_seen)])	
 
 with open('comp3-trikexwdb.csv','wb') as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')    
-    write_file.writerow(["GPS Time","LastUpdt(WDB)","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude"])
+    write_file.writerow(["GPS Time","LastUpdt(WDB)","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude","Box No.","Box Time","Box Speed","Box Traversal","Persistence","Dates Seen"])
     for item in common_trike_wdb:
-        write_file.writerow([str(item.gps_time),str(item.last_updt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng)])	
+        write_file.writerow([str(item.gps_time),str(item.last_updt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng),str(item.box_num),str(item.box_time),str(item.box_speed),str(item.box_traversal),str(item.persistence),str(item.dates_seen)])	
 
 with open('comp3-gtxwdb.csv','wb') as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',') 
@@ -258,7 +266,7 @@ with open('comp3-gtxwdb.csv','wb') as csvfile:
     
 with open('comp3-cross_all.csv','wb') as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
-    write_file.writerow(["GPS Time","LastUpdt(WDB)","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude","Persistence","Dates Seen"])
+    write_file.writerow(["GPS Time","LastUpdt(WDB)","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude","Box No.","Box Time","Box Speed","Box Traversal","Persistence","Dates Seen"])
     for item in common_all:
-	write_file.writerow([str(item.gps_time),str(item.last_updt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng),str(item.persistence),str(item.dates_seen)])
+	write_file.writerow([str(item.gps_time),str(item.last_updt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng),str(item.box_num),str(item.box_time),str(item.box_speed),str(item.box_traversal),str(item.persistence),str(item.dates_seen)])	
 

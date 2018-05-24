@@ -46,6 +46,10 @@ class AP:
 	self.ap_type = ap_type
 	self.lat = lat
         self.lng = lng
+        self.box_num = 0
+        self.box_time = 0
+        self.box_speed = 0
+        self.box_traversal = 0
         self.persistence = 0
         self.dates_seen = ""
         
@@ -294,6 +298,7 @@ for box in box_list:
                     speed = (distance/time_spent) * 3.6   #3.6 to convert from m/s to km/hr
                     box.speed += speed
                     box.traversal += 1
+
                     
 #We will now make a list of APs that we confidently gathered                    
 confident_list = []
@@ -359,21 +364,29 @@ with open("results/box_info.csv","wb") as csvfile:
     write_file.writerow(["Max",str(max_num)])
     write_file.writerow(["Min",str(min_num)])
     write_file.writerow(["Box No.","Total AP","Time Spent","Avg Speed","Traversal"])
+
+    #compute for the avg_speed
+    #add the data of box to each of the access points found in it
     number = 0
     for box in box_list:
-        #compute for average speed first
         if box.traversal != 0:
             box.avg_speed = box.speed / box.traversal
-
+        for ap in box.ap_list:
+            ap.box_num = number
+            ap.box_time = box.time_spent
+            ap.box_speed = box.avg_speed
+            ap.box_traversal = box.traversal
+            
         write_file.writerow([str(number),str(len(box.ap_list)),str(box.time_spent),str(box.avg_speed),str(box.traversal)])
         number += 1
 
-#make a csv file of APs in TVE
+#make a csv file of APs in TVE, box located and box info, and persistence and
+#dates seen are added to the AP info
 with open("results/tve_list.csv","wb") as csvfile:
     write_file = csv.writer(csvfile, delimiter = ',')
-    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude","Persistence","Dates Seen"])
+    write_file.writerow(["GPS Time","Time","MAC","SSID","Encryption","RSSI","Channel","Manufacturer","AP Type","Latitude","Longitude","Box No.","Box Time","Box Speed","Box Traversal","Persistence","Dates Seen"])
     for item in tve_list:
-        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng),str(item.persistence),str(item.dates_seen)])	
+        write_file.writerow([str(item.gps_time),str(item.time_capt),str(item.mac),str(item.ssid),str(item.security),str(item.rssi),str(item.channel),str(item.manuf),str(item.ap_type),str(item.lat),str(item.lng),str(item.box_num),str(item.box_time),str(item.box_speed),str(item.box_traversal),str(item.persistence),str(item.dates_seen)])	
 
 #make a csv file for TVE persistence, grouped according to boxes
 with open("results/tve_persist.csv","wb") as csvfile:
